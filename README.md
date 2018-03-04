@@ -1,0 +1,1 @@
+Sector of logical solutions.
