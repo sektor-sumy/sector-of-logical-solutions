@@ -1,0 +1,27 @@
+{% extends 'base1.html.twig' %}
+{% set meta_title = 'test meta title' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="kkk.css">
+{% endblock %}
+
+{% block metatags %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}
+
+
+{% block body %}
+    {% include 'default/layout/menu.html.twig' %}
+
+    {% block content %} 1 {% endblock %}
+{% endblock %}

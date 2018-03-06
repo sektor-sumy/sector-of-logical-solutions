@@ -1,0 +1,26 @@
+{
+  "name": "sector-of-logical-solutions",
+  "homepage": "https://github.com/sektor-sumy/sector-of-logical-solutions",
+  "authors": [
+    "reznikovkg <reznikov_kosta@yandex.ru>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./vendor-web/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "4.*",
+    "jquery": "3.3.*",
+    "jquery-easing": "git@github.com:gdsmith/jquery.easing.git#v1.4.1",
+    "chartjs": "2.7.*",
+    "datatables.net-bs4": "1.10.*",
+    "font-awesome": "4.*"
+  }
+}

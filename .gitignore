@@ -17,3 +17,7 @@
 /web/bundles/
 .idea/*
 composer.lock
+web/js/*
+node_modules/*
+vendor-web/*
+!vendor-web/sb-admin
