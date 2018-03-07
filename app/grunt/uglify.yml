@@ -2,45 +2,51 @@ main:
   options:
     mangle:
       except: [ "jQuery", "Backbone" ]
-    sourceMap: true
+    sourceMap: false
+    beautify: true
   files:
-    web/js/frontend.js:
-      - app/Resources/js/frontend/**/*.js
-      - app/Resources/js/components/**/*.js
-    web/js/account.js:
-      - app/Resources/js/account/**/*.js
-      - app/Resources/js/components/**/*.js
+    #web/js/frontend.js:
+    #  - app/Resources/sb-admin/js/**/*.js
+    #  - app/Resources/js/components/**/*.js
+    #web/js/account.js:
+    #  - app/Resources/js/account/**/*.js
+    #  - app/Resources/js/components/**/*.js
     web/js/backend.js:
       - app/Resources/js/backend/**/*.js
-      - app/Resources/js/components/**/*.js
+    #  - app/Resources/js/components/**/*.js
 
 vendors:
   options:
     mangle:
       except: [ "jQuery", "Backbone" ]
     sourceMap: false
+    beautify: true
   files:
-    web/js/frontend_head.js:
-      - vendor-web/jquery/dist/jquery.js
-    web/js/frontend_vendor.js:
-      - vendor-web/bootstrap/dist/js/bootstrap.js
-    web/js/account_head.js:
-      - vendor-web/jquery/dist/jquery.js
-    web/js/account_vendor.js:
-      - vendor-web/bootstrap/dist/js/bootstrap.js
     web/js/backend_head.js:
-      - vendor-web/jquery/dist/jquery.js
-      - vendor-web/jquery-ui/jquery-ui.js
+      - vendor-web/html5shiv/dist/html5shiv.min.js
+      - vendor-web/Respond/dest/respond.min.js
+
     web/js/backend_vendor.js:
-      - vendor-web/bootstrap/dist/js/bootstrap.js
-      - vendor-web/AdminLTE/plugins/sparkline/jquery.sparkline.min.js
-      - vendor-web/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js
-      - vendor-web/AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js
-      - vendor-web/AdminLTE/plugins/knob/jquery.knob.js
-      - vendor-web/AdminLTE/plugins/daterangepicker/moment.min.js
-      - vendor-web/AdminLTE/plugins/daterangepicker/daterangepicker.js
-      - vendor-web/AdminLTE/plugins/datepicker/bootstrap-datepicker.js
-      - vendor-web/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js
-      - vendor-web/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js
-      - vendor-web/AdminLTE/plugins/fastclick/fastclick.js
-      - vendor-web/AdminLTE/dist/js/app.min.js
+      - vendor-web/jquery/dist/jquery.min.js
+      - vendor-web/jquery-ui/jquery-ui.min.js
+      - vendor-web/bootstrap/bootstrap/dist/js/bootstrap.min.js
+      - vendor-web/bootstrap/raphael/raphael.min.js
+      - vendor-web/bootstrap/morris.js/morris.min.js
+
+      - vendor-web/jquery-easing/jquery.easing.min.js
+      - vendor-web/chartjs/dist/Chart.min.js
+      - vendor-web/datatables.net/js/jquery.dataTables.min.js
+      - vendor-web/datatables.net-bs4/js/dataTables.bootstrap4.min.js
+      - vendor-web/sb-admin/js/**/*.js
+#<script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+      - vendor-web/moment/min/moment.min.js
+      - vendor-web/bootstrap-daterangepicker/daterangepicker.js
+      - vendor-web/bootstrap-datepicker/daterangepicker.js
+      - vendor-web/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.js
+      - vendor-web/jquery-slimscroll/jquery.slimscroll.min.js
+
+    web/js/backend1.js:
+      - vendor-web/AdminLTE/dist/js/adminlte.min.js
+      - vendor-web/AdminLTE/dist/js/pages/dashboard.js
+      - vendor-web/AdminLTE/dist/js/demo.js
+

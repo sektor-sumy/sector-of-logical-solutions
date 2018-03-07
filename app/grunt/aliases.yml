@@ -3,10 +3,7 @@ default:
     - clean
     - mkdir
     - copy
-    - less:dev_frontend
     - less:dev_backend
-    - less:dev_account
-    - less:dev_email
     - uglify
     - watch
 

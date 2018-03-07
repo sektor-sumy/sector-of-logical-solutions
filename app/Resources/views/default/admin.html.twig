@@ -1,27 +1,39 @@
 {% extends 'base1.html.twig' %}
 {% set meta_title = 'test meta title' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="kkk.css">
-{% endblock %}
 
 {% block metatags %}
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 {% endblock %}
 
 {% block stylesheets %}
-
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/backend.css') }}">
 {% endblock %}
 
 {% block javascript %}
-
+    {{ parent() }}
+    <script src="{{ asset('js/backend_head.js') }}"></script>
 {% endblock %}
 
 
-{% block body %}
-    {% include 'default/layout/menu.html.twig' %}
+{% set body_class='hold-transition skin-blue sidebar-mini' %}
+{% set body_id='page-top' %}
 
-    {% block content %} 1 {% endblock %}
+{% block body %}
+    <div class="wrapper">
+        {% include 'default/layout/header.html.twig' %}
+        {% include 'default/layout/menu.html.twig' %}
+
+        {% block content %} {% include 'default/layout/content.html.twig' %} {% endblock %}
+
+
+        {% include 'default/layout/footer.html.twig' %}
+
+        <script src="{{ asset('js/backend_vendor.js') }}"></script>
+        <script src="{{ asset('js/backend.js') }}"></script>
+        <script src="{{ asset('js/backend1.js') }}"></script>
+    </div>
 {% endblock %}

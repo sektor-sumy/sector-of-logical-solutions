@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
     require('time-grunt')(grunt);
 
+    grunt.loadNpmTasks('grunt-scss-lint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');

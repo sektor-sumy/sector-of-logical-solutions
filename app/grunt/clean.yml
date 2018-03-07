@@ -4,3 +4,4 @@ default:
     - "web/fonts"
     - "web/js"
     - "web/img"
+    - "web/dist"
