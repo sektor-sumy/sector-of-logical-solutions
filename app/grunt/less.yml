@@ -1,3 +1,11 @@
+dev_frontend:
+  options:
+    optimization: 2
+    dumpLineNumbers: all
+    sourceMap: false
+  files:
+    web/css/frontend.css: app/Resources/FOSUserBundle/frontend/main.less
+
 dev_backend:
   options:
     optimization: 2
@@ -5,6 +13,7 @@ dev_backend:
     sourceMap: false
   files:
     web/css/backend.css: app/Resources/less/backend/main.less
+
 prod_backend:
   options:
     compress: true

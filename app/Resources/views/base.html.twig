@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<!doctype html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    {% block meta_title %}
+        <title>{{ meta_title|default('Admin Panel') }}</title>
+    {% endblock %}
+
+    {% block metatags %} {% endblock %}
+
+    {% block stylesheets %} {% endblock %}
+    {% block javascript %} {% endblock %}
+</head>
+<body class="{{ body_class|default('base') }}" id="{{ body_id|default('base') }}">
+    {% block body %} {% endblock %}
+</body>
 </html>

@@ -33,20 +33,19 @@ vendors:
       - vendor-web/bootstrap/raphael/raphael.min.js
       - vendor-web/bootstrap/morris.js/morris.min.js
 
-      - vendor-web/jquery-easing/jquery.easing.min.js
-      - vendor-web/chartjs/dist/Chart.min.js
-      - vendor-web/datatables.net/js/jquery.dataTables.min.js
-      - vendor-web/datatables.net-bs4/js/dataTables.bootstrap4.min.js
-      - vendor-web/sb-admin/js/**/*.js
-#<script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+      - vendor-web/AdminLTE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js
+      - vendor-web/jvectormap/jquery-jvectormap.js
+      - vendor-web/jquery-knob/dist/jquery.knob.min.js
+
       - vendor-web/moment/min/moment.min.js
       - vendor-web/bootstrap-daterangepicker/daterangepicker.js
       - vendor-web/bootstrap-datepicker/daterangepicker.js
-      - vendor-web/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.js
+      - vendor-web/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js
       - vendor-web/jquery-slimscroll/jquery.slimscroll.min.js
 
     web/js/backend1.js:
       - vendor-web/AdminLTE/dist/js/adminlte.min.js
       - vendor-web/AdminLTE/dist/js/pages/dashboard.js
       - vendor-web/AdminLTE/dist/js/demo.js
+
 

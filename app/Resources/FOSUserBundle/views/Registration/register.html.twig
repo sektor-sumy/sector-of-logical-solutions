@@ -1,0 +1,33 @@
+{% extends "frontend/base.html.twig" %}
+{% set meta_title = 'register' %}
+
+
+{% block metatags %}
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend.css') }}">
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="login-container"><h1>Register Account</h1><br>
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_widget(form) }}
+        <div>
+            <input type="submit" class="login login-submit" id="_submit" name="_submit" value="{{ 'registration.submit'|trans }}" />
+        </div>
+    {{ form_end(form) }}
+        <div class="login-help">
+            <a href="{{ path('fos_user_security_login') }}">Login</a>
+        </div>
+    </div>
+{% endblock %}

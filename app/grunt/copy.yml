@@ -14,6 +14,7 @@ default:
       src:
         - ./vendor-web/bootstrap/fonts/*
         - ./vendor-web/font-awesome/fonts/*
+        - ./vendor-web/ionicons/fonts/*
       dest: web/fonts
     -
       expand: true
@@ -27,3 +28,4 @@ default:
       src:
         - ./vendor-web/AdminLTE/dist/img/*
       dest: web/dist/img
+

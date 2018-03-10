@@ -1,0 +1,36 @@
+{% extends "frontend/base.html.twig" %}
+{% set meta_title = 'login admin' %}
+
+
+{% block metatags %}
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend.css') }}">
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="login-container"><h1>Request Account</h1><br>
+    <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+        <div>
+            <label for="username">{{ 'resetting.request.username'|trans }}</label>
+            <input type="text" id="username" name="username" required="required" />
+        </div>
+        <div>
+            <input type="submit" class="login login-submit" id="_submit"  value="{{ 'resetting.request.submit'|trans }}" />
+        </div>
+    </form>
+        <div class="login-help">
+            <a href="{{ path('fos_user_security_login') }}">Login</a> - <a href="{{ path('fos_user_registration_register') }}">Register</a>
+        </div>
+    </div>
+{% endblock %}
