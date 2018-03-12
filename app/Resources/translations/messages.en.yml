@@ -1,2 +1,2 @@
-security.login.username: __security.login.username
-test: 'Olololo'
+security.login.username: Login
+test: Olololo

@@ -8,7 +8,8 @@
             </div>
             <div class="pull-left info">
                 <p>{{ app.user.email }}</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> {{ "now"|date("d/m/Y") }}</a>
+                <a href="{{ url('admin.page.dashboard', {page:'test'}) }}"><i class="fa fa-circle text-success"></i> {{ "now"|date("d/m/Y") }}</a>
+                <a href="{{ url('admin.page.dashboard', {page:'test'}) }}"><i class="fa fa-circle text-success"></i> {{ "now"|date("d/m/Y") }}</a>
             </div>
         </div>
         <!-- search form -->

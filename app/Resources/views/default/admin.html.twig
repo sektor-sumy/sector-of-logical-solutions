@@ -27,7 +27,7 @@
         {% include 'default/layout/header.html.twig' %}
         {% include 'default/layout/menu.html.twig' %}
 
-        {% block content %} {% include 'default/layout/content.html.twig' %} {% endblock %}
+        {% block content %} {% include 'default/layout/'~ page|default('content') ~'.html.twig' %} {% endblock %}
 
 
         {% include 'default/layout/footer.html.twig' %}
