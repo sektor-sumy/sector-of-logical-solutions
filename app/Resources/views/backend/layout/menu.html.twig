@@ -8,8 +8,8 @@
             </div>
             <div class="pull-left info">
                 <p>{{ app.user.email }}</p>
-                <a href="{{ url('admin.page.dashboard', {page:'test'}) }}"><i class="fa fa-circle text-success"></i> {{ "now"|date("d/m/Y") }}</a>
-                <a href="{{ url('admin.page.dashboard', {page:'test'}) }}"><i class="fa fa-circle text-success"></i> {{ "now"|date("d/m/Y") }}</a>
+                <a href="{{ url('backend.dashboard', {page:'test'}) }}"><i class="fa fa-circle text-success"></i> {{ "now"|date("d/m/Y") }}</a>
+                <a href="{{ url('backend.dashboard', {page:'test'}) }}"><i class="fa fa-circle text-success"></i> {{ "now"|date("d/m/Y") }}</a>
             </div>
         </div>
         <!-- search form -->
@@ -37,6 +37,11 @@
                     <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                     <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
+            </li>
+            <li>
+                <a href="{{ url('admin.page.index') }}">
+                    <i class="fa fa-list"></i><span> Pages</span>
+                </a>
             </li>
             <li class="treeview">
                 <a href="#">

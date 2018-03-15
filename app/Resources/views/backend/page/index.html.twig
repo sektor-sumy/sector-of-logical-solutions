@@ -1,0 +1,65 @@
+{% extends ':backend:admin.html.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Pages list</h3>
+
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Slug</th>
+                            <th>Title</th>
+                            <th>Meta</th>
+                            <th>Date Actions</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for page in pages %}
+                        <tr>
+                            <td>{{ page.id }}</td>
+                            <td>{{ page.slug }}</td>
+                            <td>{{ page.title }}</td>
+                            <td>
+                                <b>Title:</b> {{ page.metaTitle }}<br>
+                                <b>Description:</b> {{ page.metaDescription }}<br>
+                                <b>Keywords:</b> {{ page.metaKeywords }}
+                            </td>
+                            <td>
+                                <b>Createdat: </b>
+                                {% if page.createdAt %}{{ page.createdAt|date('Y-m-d H:i:s') }}{% endif %}<br>
+                                <b>Removedat: </b>
+                                {% if page.removedAt %}{{ page.removedAt|date('Y-m-d H:i:s') }}{% endif %}
+                            </td>
+                            <td>{{ page.content }}</td>
+                            <td>
+                                <a href="{{ path('admin.page.show', { 'id': page.id }) }}"><span class="label label-success">Show</span></a>
+                                <a href="{{ path('admin.page.edit', { 'id': page.id }) }}"><span class="label label-warning">Edit</span></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+    <a class="btn btn-block btn-success btn-sm" style="max-width: 120px;" href="{{ path('admin.page.new') }}">Create a new</a>
+
+{% endblock %}

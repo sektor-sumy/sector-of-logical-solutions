@@ -24,13 +24,15 @@
 
 {% block body %}
     <div class="wrapper">
-        {% include 'default/layout/header.html.twig' %}
-        {% include 'default/layout/menu.html.twig' %}
+        {% include 'backend/layout/header.html.twig' %}
+        {% include 'backend/layout/menu.html.twig' %}
+        <div class="content-wrapper">
+            <section class="content">
+            {% block content %} {% include 'backend/layout/'~ page|default('content') ~'.html.twig' %} {% endblock %}
+            </section>
+        </div>
 
-        {% block content %} {% include 'default/layout/'~ page|default('content') ~'.html.twig' %} {% endblock %}
-
-
-        {% include 'default/layout/footer.html.twig' %}
+        {% include 'backend/layout/footer.html.twig' %}
 
         <script src="{{ asset('js/backend_vendor.js') }}"></script>
         <script src="{{ asset('js/backend.js') }}"></script>
