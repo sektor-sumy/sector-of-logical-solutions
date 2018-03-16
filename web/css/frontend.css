@@ -48,7 +48,8 @@ input[type=password] {
 }
 /* line 39, app/Resources/FOSUserBundle/css/login.css */
 @media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/FOSUserBundle\/css\/login\.css}line{font-family:\0000339}}
-.login-container input[type=text]:hover,
+.login-container input[type=email],
+input[type=text]:hover,
 input[type=password]:hover {
   border: 1px solid #b9b9b9;
   border-top: 1px solid #a0a0a0;

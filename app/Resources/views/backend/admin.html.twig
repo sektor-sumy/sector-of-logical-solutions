@@ -27,15 +27,17 @@
         {% include 'backend/layout/header.html.twig' %}
         {% include 'backend/layout/menu.html.twig' %}
         <div class="content-wrapper">
-            <section class="content">
+            <section class="content row">
             {% block content %} {% include 'backend/layout/'~ page|default('content') ~'.html.twig' %} {% endblock %}
             </section>
         </div>
 
         {% include 'backend/layout/footer.html.twig' %}
-
-        <script src="{{ asset('js/backend_vendor.js') }}"></script>
-        <script src="{{ asset('js/backend.js') }}"></script>
-        <script src="{{ asset('js/backend1.js') }}"></script>
+        {% block javascript_vendor %}
+            {{ parent() }}
+            <script src="{{ asset('js/backend_vendor.js') }}"></script>
+            <script src="{{ asset('js/backend.js') }}"></script>
+            <script src="{{ asset('js/backend1.js') }}"></script>
+        {% endblock %}
     </div>
 {% endblock %}

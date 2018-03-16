@@ -1,14 +1,13 @@
 {% extends ':backend:admin.html.twig' %}
 
 {% block content %}
-<div class="row">
     <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Pages list</h3>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Quick Example</h3>
 
                 <div class="box-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
+                    <div class="input-group input-group-sm">
 
                     </div>
                 </div>
@@ -22,7 +21,7 @@
                             <th>Slug</th>
                             <th>Title</th>
                             <th>Meta</th>
-                            <th>Date Actions</th>
+                            <th>Createdat</th>
                             <th>Content</th>
                             <th>Actions</th>
                         </tr>
@@ -39,10 +38,7 @@
                                 <b>Keywords:</b> {{ page.metaKeywords }}
                             </td>
                             <td>
-                                <b>Createdat: </b>
-                                {% if page.createdAt %}{{ page.createdAt|date('Y-m-d H:i:s') }}{% endif %}<br>
-                                <b>Removedat: </b>
-                                {% if page.removedAt %}{{ page.removedAt|date('Y-m-d H:i:s') }}{% endif %}
+                                {% if page.createdAt %}{{ page.createdAt|date('d-m-Y') }}{% endif %}
                             </td>
                             <td>{{ page.content }}</td>
                             <td>
@@ -57,9 +53,9 @@
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
+        <a class="btn btn-success btn-sm" href="{{ path('admin.page.new') }}">Create a new</a>
     </div>
-</div>
 
-    <a class="btn btn-block btn-success btn-sm" style="max-width: 120px;" href="{{ path('admin.page.new') }}">Create a new</a>
+
 
 {% endblock %}

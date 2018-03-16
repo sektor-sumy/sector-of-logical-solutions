@@ -14,5 +14,6 @@
 </head>
 <body class="{{ body_class|default('base') }}" id="{{ body_id|default('base') }}">
     {% block body %} {% endblock %}
+    {% block javascript_vendor %} {% endblock %}
 </body>
 </html>

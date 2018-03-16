@@ -44,7 +44,7 @@ class Page
      */
     protected $createdAt;
     /**
-     * @ORM\Column(name="removed_at", type="datetime", nullable=false)
+     * @ORM\Column(name="removed_at", type="datetime", nullable=true)
      */
     protected $removedAt;
     /**
@@ -56,6 +56,7 @@ class Page
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
     }
 
 

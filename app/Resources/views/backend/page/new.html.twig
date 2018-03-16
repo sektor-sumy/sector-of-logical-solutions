@@ -1,16 +1,50 @@
 {% extends ':backend:admin.html.twig' %}
 
 {% block content %}
-    <h1>Page creation</h1>
+    <div class="col-sm-4">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Page creation</h3>
+            </div>
+            {{ form_start(form) }}
+            <div class="box-body">
+                <div class="form-group">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title, {'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.slug) }}
+                    {{ form_widget(form.slug, {'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.metaTitle) }}
+                    {{ form_widget(form.metaTitle, {'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.metaDescription) }}
+                    {{ form_widget(form.metaDescription, {'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.metaKeywords) }}
+                    {{ form_widget(form.metaKeywords, {'attr':{'class':'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.content) }}
+                    {{ form_widget(form.content, {'attr':{
+                        'class':'form-control',
+                        'rows':'10'
+                    }}) }}
+                </div>
+                <input class="btn btn-success btn-sm" type="submit" value="Create page" />
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <a href="{{ path('admin.page.index') }}">
+            <button class="btn btn-primary btn-sm">Back to the list</button>
+        </a>
+    </div>
+{% endblock %}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('admin.page.index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% block javascript_vendor %}
+    {{ parent() }}
 {% endblock %}

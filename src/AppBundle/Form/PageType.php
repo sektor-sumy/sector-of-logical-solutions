@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,18 @@ class PageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('slug')->add('title')->add('metaTitle')->add('metaDescription')->add('metaKeywords')->add('createdAt')->add('removedAt')->add('content');
+        $builder
+            ->add('slug', TextType::class, [
+                'label' => 'Slug '
+            ])
+            ->add('title', TextType::class, [
+                'label' => 'Title '
+            ])
+            ->add('metaTitle')
+            ->add('metaDescription')
+            ->add('metaKeywords')
+            ->add('content')
+        ;
     }/**
      * {@inheritdoc}
      */
