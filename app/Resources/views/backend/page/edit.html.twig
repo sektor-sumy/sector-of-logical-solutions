@@ -35,16 +35,18 @@
                         'rows':'10'
                     }}) }}
                 </div>
-
-                {{ form_widget(edit_form) }}
-                    <input class="btn btn-danger btn-sm" type="submit" value="Edit" />
-                {{ form_end(edit_form) }}
-
-
-                {{ form_start(delete_form) }}
-                <input class="btn btn-danger btn-sm" type="submit" value="Delete">
-                {{ form_end(delete_form) }}
-
+                <div>
+                    <div class="btn-group">
+                    {{ form_widget(edit_form) }}
+                        <input class="btn btn-warning btn-sm" type="submit" value="Edit" />
+                    {{ form_end(edit_form) }}
+                    </div>
+                    <div class="btn-group">
+                    {{ form_start(delete_form) }}
+                        <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+                    {{ form_end(delete_form) }}
+                    </div>
+                </div>
             </div>
             {{ form_end(edit_form) }}
 

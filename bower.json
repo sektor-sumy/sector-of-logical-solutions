@@ -37,8 +37,8 @@
     "Respond": "1.4.2",
     "wysihtml5": "~0.3.0",
     "fastclick": "1.*",
-    "ckeditor": "4.6.*"
-
+    "ckeditor": "4.6.*",
+    "vue": "2.5.*"
 
   }
 }

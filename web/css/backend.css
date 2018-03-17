@@ -18408,3 +18408,13 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="blue"] {
 ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   background: orange !important;
 }
+/* line 1, app/Resources/less/backend/restyle.css */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\000031}}
+footer.sticky-footer {
+  width: 100%;
+}
+/* line 4, app/Resources/less/backend/restyle.css */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\000034}}
+aside .tab-content {
+  display: none;
+}
