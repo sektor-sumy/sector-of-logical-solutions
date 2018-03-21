@@ -5,8 +5,8 @@ main:
     sourceMap: false
     beautify: true
   files:
-    #web/js/frontend.js:
-    #  - app/Resources/sb-admin/js/**/*.js
+    web/js/vue.js:
+      - app/Resources/js/frontend/vue/**/*.js
     #  - app/Resources/js/components/**/*.js
     #web/js/account.js:
     #  - app/Resources/js/account/**/*.js
@@ -48,4 +48,5 @@ vendors:
       - vendor-web/AdminLTE/dist/js/pages/dashboard.js
       - vendor-web/AdminLTE/dist/js/demo.js
 
-
+    web/js/frontend.js:
+      - vendor-web/vue/dist/vue.min.js

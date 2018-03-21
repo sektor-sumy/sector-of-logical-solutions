@@ -21,4 +21,17 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
+
+    /**
+     * @Route("/index/{slug}", name="index")
+     * @param Request $request, string $slug
+     * @return Response
+     */
+    public function indexAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('frontend/base.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
+    }
 }

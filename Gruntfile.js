@@ -14,6 +14,34 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-assets-versioning');
     grunt.loadNpmTasks('grunt-contrib-symlink');
     grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-vue');
+
+    /*grunt.initConfig({
+        vue: {
+            options: {
+                quoteChar: "'",
+                htmlmin: {
+                    collapseBooleanAttributes: true,
+                    collapseWhitespace: true,
+                    removeAttributeQuotes: false,
+                    removeComments: true,
+                    removeEmptyAttributes: true,
+                    removeRedundantAttributes: false,
+                    removeScriptTypeAttributes: true,
+                    removeStyleLinkTypeAttributes: true
+                },
+                indentString: '  ',
+                process: false,
+                separator: grunt.util.linefeed
+            },
+
+            // compile all found in src directory
+            task1: {
+                dest: '/app/Resources/js/frontend/vue/vue1.js',
+                src: '/web/js',
+            }
+        },
+    });*/
 
     require('load-grunt-config')(grunt, {
         configPath: path.join(process.cwd(), 'app/grunt'),
