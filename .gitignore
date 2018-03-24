@@ -22,4 +22,4 @@ node_modules/*
 vendor-web/*
 !vendor-web/sb-admin
 !vendor-web/AdminLTE
-/FrontendOLD/*
+/frontend/node_modules/*
