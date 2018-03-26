@@ -1,23 +1,23 @@
 <template>
   <div id="app">
+    <page-menu/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import PageMenu from './components/Menu'
+
 export default {
-  name: 'App',
-  props: ['page']
+    components: {PageMenu},
+    name: 'App'
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import '../vendor-veb/bootstrap/css/bootstrap.min.css';
+@import '../vendor-veb/startbootstrap-creative-gh-pages/css/creative.min.css';
+body {
+  background: #1d5987;
 }
 </style>

@@ -10,46 +10,34 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  data () {
-    return {
-      slug: {},
-      page: {},
-      upLoadPage: 1,
-      lg: 0
-    }
-  },
   router,
   components: { App },
   template: '<App/>',
-  watch: {
-    upLoadPage: {
-      handler: function () {
-        this.getPage()
-        this.getSlug()
-      },
-      immediate: true
+  data () {
+    return {
+      uploadfinfo: 0,
+      slug: [],
+      slugpage: 0
     }
   },
-  methods: {
-    getPage : function () {
-      axios.get(`http://dev.logical.net/api/page`)
+  watch: {
+    uploadfinfo: {
+      handler: function () {
+        axios.get(`http://dev.logical.net/api/page`)
         .then(response => {
-        this.page = response.data
-      })
-      console.log('page!')
-    },
-    getSlug : function () {
-      var addSlug = [];
-      this.lp = this.page;
-      for (var key = 0; key < this.page; key++) {
-        addSlug.push({
-          'path': this.page[key].slug,
-          'component': 'default'
+          for (var item in response.data){
+          this.slug.push(response.data[item].slug)
+         }
         })
-      }
-      this.slug = addSlug
-      this.$router.addRoutes(addSlug)
-      console.log('slug!')
+        .catch(e => {
+          console.log('error!')
+        })
+        axios.get(`http://dev.logical.net/api/page` + this.$route.path)
+        .then(response => {
+          this.slugpage = response.data
+        })
+      },
+      immediate: true
     }
   }
 })

@@ -26,7 +26,8 @@ class PageType extends AbstractType
             ->add('metaKeywords')
             ->add('content')
         ;
-    }/**
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

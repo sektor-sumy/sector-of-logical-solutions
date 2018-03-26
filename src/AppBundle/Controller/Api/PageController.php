@@ -16,15 +16,22 @@ class PageController extends FOSRestController
 {
     /**
      * @Rest\Get("/page")
+     * @param Request $request
      */
-    public function getAllAction()
+    public function getAllAction(Request $request)
     {
-        $singleresult = $this->getDoctrine()->getRepository('AppBundle:Page')->findAll();
-        if ($singleresult === null) {
+        $isHomepage = $request->get('homepage',false);
+        if ($isHomepage) {
+            $results = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(['homepage'=>true]);
+
+        } else {
+            $results = $this->getDoctrine()->getRepository('AppBundle:Page')->findAll();
+        }
+        if (empty($results)) {
             return new View("page not found", Response::HTTP_NOT_FOUND);
         }
 
-        return $singleresult;
+        return $results;
     }
 
     /**

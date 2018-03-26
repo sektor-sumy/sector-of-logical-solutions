@@ -5,7 +5,10 @@ namespace AppBundle\Controller\Backend;
 use AppBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Page controller.
@@ -36,6 +39,8 @@ class PageController extends Controller
      *
      * @Route("/new", name="admin.page.new")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
@@ -60,8 +65,12 @@ class PageController extends Controller
     /**
      * Finds and displays a page entity.
      *
-     * @Route("/{id}", name="admin.page.show")
+     * @Route("/show/{page}", name="admin.page.show")
      * @Method("GET")
+     * @param Page $page
+     * @ParamConverter("page", class="AppBundle:Page")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Page $page)
     {
@@ -76,8 +85,12 @@ class PageController extends Controller
     /**
      * Displays a form to edit an existing page entity.
      *
-     * @Route("/{id}/edit", name="admin.page.edit")
+     * @Route("/edit/{page}", name="admin.page.edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Page $page
+     * @ParamConverter("page", class="AppBundle:Page")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Page $page)
     {
@@ -99,10 +112,43 @@ class PageController extends Controller
     }
 
     /**
+     * choise home page
+     *
+     * @Route("/homepage", name="admin.page.homepage")
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function homepageAction(Request $request)
+    {
+        $pageId = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+
+        $homepage = $em->getRepository('AppBundle:Page')->findOneBy(['homepage' => true]);
+        if ($homepage) {
+            $homepage->setHomepage(false);
+        }
+
+        $page = $em->getRepository('AppBundle:Page')->find($pageId);
+        if (!$page) {
+            return new JsonResponse(['message' => 'Not found'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        $page->setHomepage(true);
+        $em->flush();
+
+        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Deletes a page entity.
      *
-     * @Route("/{id}", name="admin.page.delete")
+     * @Route("/delete/{page}", name="admin.page.delete")
      * @Method("DELETE")
+     * @param Request $request
+     * @param Page $page
+     * @ParamConverter("page", class="AppBundle:Page")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Page $page)
     {
@@ -128,7 +174,7 @@ class PageController extends Controller
     private function createDeleteForm(Page $page)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin.page.delete', array('id' => $page->getId())))
+            ->setAction($this->generateUrl('admin.page.delete', array('page' => $page->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

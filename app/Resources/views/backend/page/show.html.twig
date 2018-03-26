@@ -49,7 +49,7 @@
             <a href="{{ path('admin.page.index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('admin.page.edit', { 'id': page.id }) }}">Edit</a>
+            <a href="{{ path('admin.page.edit', { 'page': page.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

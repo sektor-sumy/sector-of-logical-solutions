@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AppRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PageRepository")
  * @ORM\Table(name="page")
  */
 class Page
@@ -22,6 +22,12 @@ class Page
      */
     protected $slug;
     /**
+     * @ORM\Column(name="homepage", type="boolean",  nullable=false, options={"default":0})
+     */
+    protected $homepage;
+
+    /**
+     * @var string
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     protected $title;
@@ -92,6 +98,22 @@ class Page
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getHomepage()
+    {
+        return $this->homepage;
+    }
+
+    /**
+     * @param boolean $homepage
+     */
+    public function setHomepage($homepage)
+    {
+        $this->homepage = $homepage;
     }
 
     /**

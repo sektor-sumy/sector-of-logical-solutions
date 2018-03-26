@@ -25,6 +25,7 @@
                             <th>Createdat</th>
                             <th>Content</th>
                             <th>Actions</th>
+                            <th>Homepage</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,8 +44,11 @@
                             </td>
                             <td>{{ page.content }}</td>
                             <td>
-                                <a href="{{ path('admin.page.show', { 'id': page.id }) }}"><span class="label label-success">Show</span></a>
-                                <a href="{{ path('admin.page.edit', { 'id': page.id }) }}"><span class="label label-warning">Edit</span></a>
+                                <a href="{{ path('admin.page.show', { 'page': page.id }) }}"><span class="label label-success">Show</span></a>
+                                <a href="{{ path('admin.page.edit', { 'page': page.id }) }}"><span class="label label-warning">Edit</span></a>
+                            </td>
+                            <td>
+                                <input class="homepage" data-id="{{ page.id }}" type="radio" name="is_homepage" value="1" {% if page.homepage %}checked{% endif %}>
                             </td>
                         </tr>
                     {% endfor %}
@@ -59,4 +63,26 @@
 
 
 
+{% endblock %}
+{% block javascript_vendor %}
+{{ parent() }}
+
+    <script>
+        $( document ).ready(function (e) {
+
+            var homepage = $('.homepage');
+
+            homepage.click(function (e) {
+                var pageId = $(this).data('id');
+                $.ajax({
+                    type: "GET",
+                    data: { 'id': pageId },
+                    url: "{{ path('admin.page.homepage') }}",
+                    success: function(data){
+                    }
+                });
+
+            })
+        })
+    </script>
 {% endblock %}

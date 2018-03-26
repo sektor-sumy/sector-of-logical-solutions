@@ -6,7 +6,6 @@
       <br>
       <span>{{page}}</span>
       <button @click="getPage">rbrk {{ upLoadPage }}</button>
-
   </div>
 </template>
 
