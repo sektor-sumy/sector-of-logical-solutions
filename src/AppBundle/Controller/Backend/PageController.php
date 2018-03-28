@@ -53,7 +53,7 @@ class PageController extends Controller
             $em->persist($page);
             $em->flush();
 
-            return $this->redirectToRoute('admin.page.show', array('id' => $page->getId()));
+            return $this->redirectToRoute('admin.page.show', array('page' => $page->getId()));
         }
 
         return $this->render('backend/page/new.html.twig', array(
@@ -101,7 +101,7 @@ class PageController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin.page.edit', array('id' => $page->getId()));
+            return $this->redirectToRoute('admin.page.edit', array('page' => $page->getId()));
         }
 
         return $this->render('backend/page/edit.html.twig', array(
@@ -135,6 +135,27 @@ class PageController extends Controller
         }
 
         $page->setHomepage(true);
+        $em->flush();
+
+        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * choise page in menu
+     *
+     * @Route("/inmenu", name="admin.page.inmenu")
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function inMenuAction(Request $request)
+    {
+        $pageId = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository('AppBundle:Page')->find($pageId);
+
+        $page->setInMenu(!$page->getInMenu());
         $em->flush();
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);

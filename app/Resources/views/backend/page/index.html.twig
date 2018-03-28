@@ -26,6 +26,7 @@
                             <th>Content</th>
                             <th>Actions</th>
                             <th>Homepage</th>
+                            <th>In menu</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +50,9 @@
                             </td>
                             <td>
                                 <input class="homepage" data-id="{{ page.id }}" type="radio" name="is_homepage" value="1" {% if page.homepage %}checked{% endif %}>
+                            </td>
+                            <td>
+                                <input class="inmenu" data-id="{{ page.id }}" type="checkbox" {% if page.inMenu %}checked{% endif %}>
                             </td>
                         </tr>
                     {% endfor %}
@@ -78,6 +82,20 @@
                     type: "GET",
                     data: { 'id': pageId },
                     url: "{{ path('admin.page.homepage') }}",
+                    success: function(data){
+                    }
+                });
+
+            })
+
+            var inmenu = $('.inmenu');
+            inmenu.unbind('click').click(function (e) {
+            console.log('click');
+            var pageId = $(this).data('id');
+                $.ajax({
+                    type: "GET",
+                    data: { 'id': pageId },
+                    url: "{{ path('admin.page.inmenu') }}",
                     success: function(data){
                     }
                 });

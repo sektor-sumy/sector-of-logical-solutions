@@ -27,6 +27,10 @@ class Page
     protected $homepage;
 
     /**
+     * @ORM\Column(name="in_menu", type="boolean",  nullable=false, options={"default":0})
+     */
+    protected $inMenu;
+    /**
      * @var string
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
@@ -63,6 +67,7 @@ class Page
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->homepage = false;
     }
 
 
@@ -114,6 +119,22 @@ class Page
     public function setHomepage($homepage)
     {
         $this->homepage = $homepage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInMenu()
+    {
+        return $this->inMenu;
+    }
+
+    /**
+     * @param mixed $inMenu
+     */
+    public function setInMenu($inMenu)
+    {
+        $this->inMenu = $inMenu;
     }
 
     /**

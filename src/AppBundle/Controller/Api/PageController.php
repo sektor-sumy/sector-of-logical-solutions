@@ -49,4 +49,19 @@ class PageController extends FOSRestController
 
         return $singleresult;
     }
+
+    /**
+     * @Rest\Get("/pagemenu")
+     */
+    public function getAllMenuAction()
+    {
+        $results = $this->getDoctrine()->getRepository('AppBundle:Page')->findBy(['inMenu'=>true]);
+
+
+        if (empty($results)) {
+            return new View("page not found", Response::HTTP_NOT_FOUND);
+        }
+
+        return $results;
+    }
 }
