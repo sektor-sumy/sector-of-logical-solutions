@@ -12040,7 +12040,7 @@ table.text-center th {
   padding: 5px 10px;
   background: #d2d6de;
   border: 1px solid #d2d6de;
-  margin: 5px 0 0 50px;
+  margin: 5px 70px 0 0;
   color: #444444;
 }
 /* line 2754, vendor-web/AdminLTE/dist/css/AdminLTE.css */
@@ -12072,8 +12072,8 @@ table.text-center th {
 /* line 2774, vendor-web/AdminLTE/dist/css/AdminLTE.css */
 @media -sass-debug-info{filename{font-family:file\:\/\/vendor-web\/AdminLTE\/dist\/css\/AdminLTE\.css}line{font-family:\000032774}}
 .right .direct-chat-text {
-  margin-right: 50px;
-  margin-left: 0;
+  margin-right: 0;
+  margin-left: 50px;
 }
 /* line 2778, vendor-web/AdminLTE/dist/css/AdminLTE.css */
 @media -sass-debug-info{filename{font-family:file\:\/\/vendor-web\/AdminLTE\/dist\/css\/AdminLTE\.css}line{font-family:\000032778}}
@@ -18417,4 +18417,39 @@ footer.sticky-footer {
 @media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\000034}}
 aside .tab-content {
   display: none;
+}
+/* line 9, app/Resources/less/backend/restyle.css */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\000039}}
+.direct-chat-text {
+  margin: 5px 50px 0 0;
+}
+/* line 13, app/Resources/less/backend/restyle.css */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\0000313}}
+.right .direct-chat-text {
+  margin-right: 5px;
+  margin-left: 50px;
+}
+/* line 18, app/Resources/less/backend/restyle.css */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\0000318}}
+.direct-chat-name {
+  color: #0b3e6f;
+  font-size: 12px;
+}
+/* line 22, app/Resources/less/backend/restyle.css */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\0000322}}
+.direct-chat-timestamp {
+  color: #fff;
+  font-size: 10px;
+}
+/* line 26, app/Resources/less/backend/restyle.css */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\0000326}}
+.name-admin {
+  color: #000000;
+  font-size: 12px;
+}
+/* line 30, app/Resources/less/backend/restyle.css */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/less\/backend\/restyle\.css}line{font-family:\0000330}}
+.timestamp-admin {
+  color: #e0e0e0;
+  font-size: 10px;
 }

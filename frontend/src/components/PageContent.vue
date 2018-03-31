@@ -7,18 +7,13 @@
         </p>
 
         <hr>
-        <p>Posted on {{ content.created_at}}</p>
+        <p>Posted on {{ content.created_at }}</p>
 
         <hr>
 
         <div>{{ content.content }}</div>
 
     </div>
-
-
-
-
-
 </template>
 
 <script>
@@ -33,7 +28,7 @@ export default {
   watch: {
     pagecontent: {
       handler: function () {
-        if (this.$route.path=='/') {
+        if (this.$route.path == '/') {
           axios.get(`http://dev.logical.net/api/page?homepage=true`)
             .then(response => {
             this.content = response.data

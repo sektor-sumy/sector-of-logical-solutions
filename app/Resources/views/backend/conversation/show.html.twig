@@ -1,0 +1,50 @@
+{% extends ':backend:admin.html.twig' %}
+
+{% block content %}
+
+    <div class="col-sm-4">
+        <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ conversation.email }}</h3>
+                <div>{{ conversation.text }}</div>
+            </div>
+            <div class="box-body">
+                <div class="direct-chat-messages">
+                    {% for replyItem in conversation.conversationReplies %}
+                        <div class="direct-chat-msg {% if replyItem.author == app.user.email %}right{% endif %}">
+                            <div class="direct-chat-text">
+                                <div class="direct-chat-info clearfix {% if replyItem.author == app.user.email %}left{% else %}right{% endif %}">
+                                    <span class="direct-chat-name pull-left {% if replyItem.author == app.user.email %}name-admin{% endif %}">{{ replyItem.author }}</span>
+                                    <span class="direct-chat-timestamp pull-right {% if replyItem.author == app.user.email %}timestamp-admin{% endif %}">{{ replyItem.createdAt|date('d-m-Y H:i') }}</span>
+                                </div>
+                                {{ replyItem.reply }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+            </div>
+
+            <div class="box-footer">
+                {{ form_start(form) }}
+                <div class="input-group">
+                {{ form_row(form.reply, {'attr':{'class':'form-control'}}) }}
+
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                          </span>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+        <div>
+            <a href="{{ path('admin.conversation.index') }}">
+                <button class="btn btn-primary btn-sm">Back to the list</button>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

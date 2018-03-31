@@ -9,3 +9,6 @@ services:
         arguments:  ['@router']
         tags:
             - { name: 'monolog.logger', channel: 'security' }
+    app.service.email_notification:
+        class: AppBundle\Service\EmailNotificationService
+        arguments:  ['@mailer']

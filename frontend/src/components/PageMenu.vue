@@ -8,7 +8,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
 
-                    <li v-for="item in menu">
+                    <li v-for="item in menu" v-bind:key="item">
                         <a class="nav-link" v-bind:href="item.slug">{{ item.title }}</a>
                     </li>
 

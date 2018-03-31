@@ -4,16 +4,16 @@
         <div class="card my-4">
             <h5 class="card-header">Feedback</h5>
             <div class="card-body">
-                <form>
+                <form id="start-conversations">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="email" v-model="conversationForm.email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Text</label>
-                        <textarea class="form-control" id="exampleInputPassword1" placeholder="Your text"></textarea>
+                        <textarea v-model="conversationForm.message" class="form-control" id="exampleInputPassword1" placeholder="Your text"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">To send</button>
+                    <div class="btn btn-primary" @click="StartConversation">To send</div>
                 </form>
             </div>
         </div>
@@ -79,9 +79,33 @@
 </template>
 
 <script>
-    export default {
-        name: "page-widget"
+import axios from 'axios'
+export default {
+  name: 'page-widget',
+  data () {
+    return {
+      conversationForm: {
+        email: '',
+        message: ''
+      }
     }
+  },
+  methods: {
+    StartConversation: function () {
+      console.log('start post')
+      axios.post(`http://dev.logical.net/api/conversation`, {
+          email: this.conversationForm.email,
+          text: this.conversationForm.message
+        })
+        .catch(function (error) {
+           console.log(error)
+        })
+      alert('Sent')
+      this.conversationForm.email = ''
+      this.conversationForm.message = ''
+    }
+  }
+}
 </script>
 
 <style scoped>
