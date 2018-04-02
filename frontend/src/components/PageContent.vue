@@ -25,24 +25,19 @@ export default {
       content: {}
     }
   },
-  watch: {
-    pagecontent: {
-      handler: function () {
-        if (this.$route.path == '/') {
-          axios.get(`http://dev.logical.net/api/page?homepage=true`)
-            .then(response => {
-            this.content = response.data
-            document.title = this.content.title
-          })
-        } else {
-          axios.get(`http://dev.logical.net/api/page` + this.$route.path)
-            .then(response => {
-            this.content = response.data
-            document.title = this.content.title
-          })
-        }
-      },
-      immediate: true
+  mounted: function () {
+    if (this.$route.path == '/') {
+      axios.get(`http://dev.logical.net/api/page?homepage=true`)
+        .then(response => {
+        this.content = response.data
+        document.title = this.content.title
+      })
+    } else {
+      axios.get(`http://dev.logical.net/api/page` + this.$route.path)
+        .then(response => {
+        this.content = response.data
+        document.title = this.content.title
+      })
     }
   }
 }

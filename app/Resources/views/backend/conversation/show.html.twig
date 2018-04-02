@@ -48,3 +48,14 @@
     </div>
 
 {% endblock %}
+
+{% block javascript_vendor %}
+    {{ parent() }}
+    <script>
+        $( document ).ready(function (e) {
+            $('div.direct-chat-messages').scrollTop(
+                $('div.direct-chat-messages').height()
+            );
+        })
+    </script>
+{% endblock %}

@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import PageMenu from './components/PageMenu'
-import PageFooter from './components/PageFooter'
-import PageWidget from './components/PageWidget'
+import PageMenu from './components/Page/PageMenu'
+import PageFooter from './components/Page/PageFooter'
+import PageWidget from './components/Page/PageWidget'
 
 export default {
   name: 'App',

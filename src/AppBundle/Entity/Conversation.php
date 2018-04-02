@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AppRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ConversationRepository")
  * @ORM\Table(name="conversation")
  */
 class Conversation
@@ -17,6 +17,10 @@ class Conversation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /**
+     * @ORM\Column(name="hash", type="string", nullable=false, unique=true)
+     */
+    protected $hash;
     /**
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
@@ -49,6 +53,7 @@ class Conversation
     {
         $this->conversationReplies = new ArrayCollection();
         $this->created_at = new \DateTime();
+        $this->hash = hash('sha256', uniqid(null, true));
     }
 
     /**
@@ -89,6 +94,19 @@ class Conversation
         }
     }
 
+    public function getConversationRepliesByArray()
+    {
+        $conversationReplies = [];
+        /** @var ConversationReply $conversationReply */
+        foreach ($this->getConversationReplies() as $conversationReply) {
+            $conversationReplies[$conversationReply->getId()] = [
+                'reply' => $conversationReply->getReply(),
+                'author' => $conversationReply->getAuthor(),
+                'createdAt' => $conversationReply->getCreatedAt()->format('Y-m-d H:i:s')
+            ];
+        }
+        return $conversationReplies;
+    }
 
 
     /**
@@ -147,4 +165,19 @@ class Conversation
         $this->text = $text;
     }
 
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    public function toArray()
+    {
+        return [
+            'text'=>$this->getText(),
+            'email'=>$this->getEmail(),
+            'author'=>$this->getAuthor(),
+            'hash'=>$this->getHash(),
+            'conversationReplies'=> $this->getConversationRepliesByArray(),
+        ];
+    }
 }

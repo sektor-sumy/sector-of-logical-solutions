@@ -15,19 +15,13 @@ export default {
       contentload: 0
     }
   },
-  watch: {
-    contentload: {
-      handler: function () {
-        axios.get(`http://dev.logical.net/api/page?homepage=true`)
-          .then(response => {
-          this.content = response.data
-          document.title = this.content.title
-        })
-      },
-      immediate: true
-    }
+  mounted: function () {
+    axios.get(`http://dev.logical.net/api/page?homepage=true`)
+      .then(response => {
+      this.content = response.data
+      document.title = this.content.title
+    })
   }
-
 }
 </script>
 

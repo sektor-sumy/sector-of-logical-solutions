@@ -18,12 +18,12 @@ class EmailNotificationService
         $this->mailer = $mailer;
     }
 
-    public function sendEmail($name)
+    public function sendEmail($mail,$reply)
     {
-        $message = (new \Swift_Message('Hello Email'))
+        $message = (new \Swift_Message('SoLS'))
             ->setFrom('send@example.com')
-            ->setTo('vasyavakulo765@gmail.com')
-            ->setBody('You should see me from the profiler!')
+            ->setTo($mail)
+            ->setBody($reply)
         ;
 
         $this->mailer->send($message);

@@ -30,7 +30,7 @@ class ConversationController extends Controller
 
         $conversations = $em->getRepository(Conversation::class)->findAll();
 
-        $this->get('app.service.email_notification')->sendEmail('adswweq');
+        //$this->get('app.service.email_notification')->sendEmail('adswweq');
 
         return $this->render('backend/conversation/index.html.twig', array(
             'conversations' => $conversations,
@@ -61,6 +61,12 @@ class ConversationController extends Controller
             $this->getDoctrine()->getManager()->persist($conversationReply);
             $this->getDoctrine()->getManager()->flush();
 
+
+            $conversation = $conversationReply->getConversation();
+
+            $reply = $conversationReply->getReply();
+
+            $this->get('app.service.email_notification')->sendEmail($conversation->getEmail(),$reply);
 
 
             return $this->redirectToRoute('admin.conversation.show', array('conversation' => $conversation->getId()));

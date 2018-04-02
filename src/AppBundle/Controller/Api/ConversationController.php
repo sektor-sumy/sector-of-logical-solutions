@@ -29,10 +29,26 @@ class ConversationController extends FOSRestController
         $conversation->setEmail($email);
         $conversation->setText($text);
 
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($conversation);
         $em->flush();
 
         return new JsonResponse(['message' => 'success']);
+    }
+
+    /**
+     * @Rest\Get("/conversation/{hash}")
+     * @param string $hash
+     */
+    public function getAction($hash)
+    {
+        $result = $this->getDoctrine()->getRepository(Conversation::class)->findOneBy([
+            'hash' => $hash,
+            ]);
+        if (!$result) {
+            return new View("page not found", Response::HTTP_NOT_FOUND);
+        }
+        return $result->toArray();
     }
 }
