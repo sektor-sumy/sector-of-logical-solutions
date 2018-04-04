@@ -1,62 +1,82 @@
 <template>
-    <div class="col-lg-8">
-        <h1 class="mt-4">Conversation</h1>
+    <div>
+        <page-menu/>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="mt-4">Conversation</h1>
 
-        <div class="chat-message">
-            <ul class="chat">
-                <div
-                    v-for="item in conversation.conversationReplies"
-                    >
-                <li class="right" v-if="item.author == conversation.email">
-                    <div class="chat-body clearfix">
-                        <div class="header">
-                            <strong class="primary-font"> {{ item.author }}</strong>
-                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ item.createdAt }}</small>
-                        </div>
-                        <p>
-                            {{ item.reply }}
-                        </p>
+                    <div class="chat-message" id="body-chat">
+                        <ul class="chat">
+                            <div
+                                v-for="item in conversation.conversationReplies"
+                                :key="item.id"
+                                >
+                                <li class="right" v-if="item.author == conversation.email">
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font"> {{ item.author }}</strong>
+                                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ item.createdAt }}</small>
+                                        </div>
+                                        <p>
+                                            {{ item.reply }}
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="left" v-else>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font"> {{ item.author }}</strong>
+                                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ item.createdAt }}</small>
+                                        </div>
+                                        <p>
+                                            {{ item.reply }}
+                                        </p>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
                     </div>
-                </li>
-                <li class="left" v-else>
-                    <div class="chat-body clearfix">
-                        <div class="header">
-                            <strong class="primary-font"> {{ item.author }}</strong>
-                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ item.createdAt }}</small>
+                    <div class="chat-box bg-white">
+                        <div class="input-group">
+                            <input v-on:keyup.enter="sendReply" v-model="writetext" class="form-control border no-shadow no-rounded" placeholder="Type your message here">
+                            <span class="input-group-btn"><button @click="sendReply" class="btn btn-success no-rounded" type="button">Send</button></span>
                         </div>
-                        <p>
-                            {{ item.reply }}
-                        </p>
                     </div>
-                </li>
                 </div>
-            </ul>
-        </div>
-        <div class="chat-box bg-white">
-            <div class="input-group">
-                <input v-on:keyup.enter="sendReply" v-model="writetext" class="form-control border no-shadow no-rounded" placeholder="Type your message here">
-                <span class="input-group-btn"><button @click="sendReply" class="btn btn-success no-rounded" type="button">Send</button></span>
+                <page-widget/>
             </div>
-
         </div>
+        <page-footer/>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import PageMenu from '../components/Page/PageMenu'
+import PageFooter from '../components/Page/PageFooter'
+import PageWidget from '../components/Page/PageWidget'
 export default {
   name: 'conversation',
+  components: {
+    PageMenu: PageMenu,
+    PageFooter: PageFooter,
+    PageWidget: PageWidget
+  },
   data () {
     return {
       conversation: {},
       lastIdReply: 0,
-      writetext: ''
+      writetext: '',
+      chatScroll: 0
     }
   },
   mounted: function () {
     axios.get(`http://dev.logical.net/api` + this.$route.path)
       .then(response => {
       this.conversation = response.data
+      this.lastIdReply++
+      this.chatScroll++
     })
   },
   methods: {
@@ -80,13 +100,23 @@ export default {
       .catch(function (error) {
         console.log(error)
       })
-
+    }
+  },
+  watch: {
+    lastIdReply: function () {
+      setTimeout(function() {
+        this.chatScroll = document.getElementById('body-chat').scrollHeight
+        this.chatScroll++
+        console.log(this.chatScroll)
+        document.getElementById('body-chat').scrollTop = this.chatScroll
+      }, 1)
     }
   }
 }
 </script>
 
 <style scoped>
+
     .friend-list {
         list-style: none;
         margin-left: -40px;
@@ -147,14 +177,14 @@ export default {
         font-size: 10px;
         padding: 3px 5px;
     }
-
+    #body-chat {
+        overflow-y: scroll;
+    }
     .chat {
         list-style: none;
         margin: 0;
         padding: 0;
         height: 500px;
-        overflow-x: hidden;
-        overflow-y: scroll;
         padding: 20px;
     }
 

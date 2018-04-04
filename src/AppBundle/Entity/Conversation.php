@@ -41,8 +41,6 @@ class Conversation
      */
     protected $text;
 
-
-
     /**
      * ConversationReply [] | ArrayCollection
      * @ORM\OneToMany(targetEntity="ConversationReply", mappedBy="conversation")

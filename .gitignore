@@ -23,4 +23,5 @@ vendor-web/*
 !vendor-web/sb-admin
 !vendor-web/AdminLTE
 /frontend/node_modules/*
-/frontend/vendor-veb/*
+/frontend/vendor-web/*
+/frontend/src/assets/img/*

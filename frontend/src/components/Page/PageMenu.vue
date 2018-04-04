@@ -9,7 +9,7 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li v-for="item in menu" v-bind:key="item">
-                        <a class="nav-link" v-bind:href="item.slug">{{ item.title }}</a>
+                        <a class="nav-link" v-bind:href="'/'+item.slug">{{ item.title }}</a>
                     </li>
 
                 </ul>
@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     body {
         padding-top: 54px;
     }

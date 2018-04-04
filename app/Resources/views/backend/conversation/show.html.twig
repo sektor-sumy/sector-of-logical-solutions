@@ -53,9 +53,7 @@
     {{ parent() }}
     <script>
         $( document ).ready(function (e) {
-            $('div.direct-chat-messages').scrollTop(
-                $('div.direct-chat-messages').height()
-            );
+            $('div.direct-chat-messages').scrollTop(9999);
         })
     </script>
 {% endblock %}

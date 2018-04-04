@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import Homepage from '@/components/Homepage'
 import PageContent from '@/components/PageContent'
 import Conversation from '@/components/Conversation'
 
@@ -10,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: PageContent
+      component: Homepage
     },
     {
       path: '/:slug',

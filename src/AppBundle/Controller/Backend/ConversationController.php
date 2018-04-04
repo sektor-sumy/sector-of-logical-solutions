@@ -20,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class ConversationController extends Controller
 {
     /**
-     * Lists all page entities.
+     * Lists all conversations.
      *
      * @Route("/", name="admin.conversation.index")
      */
@@ -38,7 +38,7 @@ class ConversationController extends Controller
     }
 
     /**
-     * Finds and displays a page entity.
+     * Finds and displays a conversation entity.
      *
      * @Route("/show/{conversation}", name="admin.conversation.show")
      * @param Conversation $conversation
@@ -82,7 +82,6 @@ class ConversationController extends Controller
      * Deletes a page entity.
      *
      * @Route("/delete/{conversation}", name="admin.conversation.delete")
-     * @Method("DELETE")
      * @param Request $request
      * @param Conversation $conversation
      * @ParamConverter("conversation", class="AppBundle:Conversation")
@@ -106,7 +105,6 @@ class ConversationController extends Controller
      * Creates a form to delete a page entity.
      *
      * @param Conversation $conversation The page entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(Conversation $conversation)

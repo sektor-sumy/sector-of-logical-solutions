@@ -1,25 +1,37 @@
 <template>
-    <div class="col-lg-8">
-        <h1 class="mt-4">{{ content.title }}</h1>
-        <p class="lead">
-            by
-            <a href="#">Start Bootstrap</a>
-        </p>
+    <div>
+        <page-menu/>
+        <div class="container">
+            <div class="row">
 
-        <hr>
-        <p>Posted on {{ content.created_at }}</p>
+                <div class="col-lg-8">
+                    <h1 class="mt-4">{{ content.title }}</h1>
+                    <hr>
 
-        <hr>
+                    <p>Posted on {{ content.created_at }}</p>
+                    <hr>
 
-        <div>{{ content.content }}</div>
-
+                    <div>{{ content.content }}</div>
+                </div>
+                <page-widget/>
+            </div>
+        </div>
+        <page-footer/>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import PageMenu from '../components/Page/PageMenu'
+import PageFooter from '../components/Page/PageFooter'
+import PageWidget from '../components/Page/PageWidget'
 export default {
   name: 'page-content',
+  components: {
+    PageMenu: PageMenu,
+    PageFooter: PageFooter,
+    PageWidget: PageWidget
+  },
   data () {
     return {
       content: {}
@@ -43,6 +55,5 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
 </style>

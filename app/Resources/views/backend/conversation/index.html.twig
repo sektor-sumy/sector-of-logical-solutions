@@ -33,7 +33,12 @@
                             <td>{{ conversation.author }}</td>
                             <td>{{ conversation.text }}</td>
                             <td>
-                                <a href="{{ path('admin.conversation.show', { 'conversation': conversation.id }) }}"><span class="label label-success">Show</span></a>
+                                <a href="{{ path('admin.conversation.show', { 'conversation': conversation.id }) }}">
+                                    <span class="label label-success">Show</span>
+                                </a>
+                                <a href="{{ path('admin.conversation.delete', { 'conversation': conversation.id }) }}">
+                                    <span class="label label-warning">Delete</span>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -43,7 +48,7 @@
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
-        <a class="btn btn-success btn-sm" href="{{ path('admin.page.new') }}">Create a new</a>
+        <a class="btn btn-success btn-sm" href="{{ path('admin.page.new') }}">Button</a>
     </div>
 
 
