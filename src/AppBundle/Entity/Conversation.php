@@ -106,7 +106,6 @@ class Conversation
         return $conversationReplies;
     }
 
-
     /**
      * @return mixed
      */

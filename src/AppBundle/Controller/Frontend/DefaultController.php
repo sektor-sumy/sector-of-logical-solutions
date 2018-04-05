@@ -16,7 +16,6 @@ class DefaultController extends Controller
      */
     public function dashboardAction(Request $request)
     {
-        // replace this example code with whatever you need
         return $this->render('frontend/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
@@ -29,7 +28,6 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
         return $this->render('frontend/base.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);

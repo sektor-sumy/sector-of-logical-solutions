@@ -21,7 +21,6 @@ class PageController extends Controller
      * Lists all page entities.
      *
      * @Route("/", name="admin.page.index")
-     * @Method("GET")
      */
     public function indexAction()
     {
@@ -29,17 +28,17 @@ class PageController extends Controller
 
         $pages = $em->getRepository('AppBundle:Page')->findAll();
 
-        return $this->render('backend/page/index.html.twig', array(
+        return $this->render('backend/page/index.html.twig', [
             'pages' => $pages,
-        ));
+        ]);
     }
 
     /**
      * Creates a new page entity.
      *
      * @Route("/new", name="admin.page.new")
-     * @Method({"GET", "POST"})
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
@@ -50,23 +49,30 @@ class PageController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($page);
-            $em->flush();
+            try {
+                $em->persist($page);
+                $em->flush();
 
-            return $this->redirectToRoute('admin.page.show', array('page' => $page->getId()));
+            } catch (\Exception $e) {
+                $this->get('logger')->error($e, ['exception' => $e]);
+                $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+            }
+
+            return $this->redirectToRoute('admin.page.show', [
+                'page' => $page->getId()
+            ]);
         }
 
-        return $this->render('backend/page/new.html.twig', array(
+        return $this->render('backend/page/new.html.twig', [
             'page' => $page,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
      * Finds and displays a page entity.
      *
      * @Route("/show/{page}", name="admin.page.show")
-     * @Method("GET")
      * @param Page $page
      * @ParamConverter("page", class="AppBundle:Page")
      *
@@ -76,17 +82,17 @@ class PageController extends Controller
     {
         $deleteForm = $this->createDeleteForm($page);
 
-        return $this->render('backend/page/show.html.twig', array(
+        return $this->render('backend/page/show.html.twig', [
             'page' => $page,
             'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**
      * Displays a form to edit an existing page entity.
      *
      * @Route("/edit/{page}", name="admin.page.edit")
-     * @Method({"GET", "POST"})
+     *
      * @param Request $request
      * @param Page $page
      * @ParamConverter("page", class="AppBundle:Page")
@@ -99,29 +105,35 @@ class PageController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            try {
+                $this->getDoctrine()->getManager()->flush();
+            } catch (\Exception $e) {
+                $this->get('logger')->error($e, ['exception' => $e]);
+                $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+            }
 
-            return $this->redirectToRoute('admin.page.edit', array('page' => $page->getId()));
+            return $this->redirectToRoute('admin.page.edit', [
+                'page' => $page->getId()
+            ]);
         }
 
-        return $this->render('backend/page/edit.html.twig', array(
+        return $this->render('backend/page/edit.html.twig', [
             'page' => $page,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**
      * choise home page
      *
      * @Route("/homepage", name="admin.page.homepage")
-     * @Method({"GET", "POST"})
      * @param Request $request
      * @return JsonResponse
      */
     public function homepageAction(Request $request)
     {
-        $pageId = $request->get('id');
+        $pageId = $request->get('id', null);
         $em = $this->getDoctrine()->getManager();
 
         $homepage = $em->getRepository('AppBundle:Page')->findOneBy(['homepage' => true]);
@@ -135,7 +147,13 @@ class PageController extends Controller
         }
 
         $page->setHomepage(true);
-        $em->flush();
+
+        try {
+            $em->flush();
+        } catch (\Exception $e) {
+            $this->get('logger')->error($e, ['exception' => $e]);
+            $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+        }
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
@@ -144,7 +162,6 @@ class PageController extends Controller
      * choise page in menu
      *
      * @Route("/inmenu", name="admin.page.inmenu")
-     * @Method({"GET", "POST"})
      * @param Request $request
      * @return JsonResponse
      */
@@ -154,9 +171,14 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('AppBundle:Page')->find($pageId);
-
         $page->setInMenu(!$page->getInMenu());
-        $em->flush();
+
+        try {
+            $em->flush();
+        } catch (\Exception $e) {
+            $this->get('logger')->error($e, ['exception' => $e]);
+            $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+        }
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
@@ -165,7 +187,6 @@ class PageController extends Controller
      * Deletes a page entity.
      *
      * @Route("/delete/{page}", name="admin.page.delete")
-     * @Method("DELETE")
      * @param Request $request
      * @param Page $page
      * @ParamConverter("page", class="AppBundle:Page")
@@ -178,8 +199,14 @@ class PageController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($page);
-            $em->flush();
+
+            try {
+                $em->remove($page);
+                $em->flush();
+            } catch (\Exception $e) {
+                $this->get('logger')->error($e, ['exception' => $e]);
+                $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+            }
         }
 
         return $this->redirectToRoute('admin.page.index');
@@ -190,12 +217,14 @@ class PageController extends Controller
      *
      * @param Page $page The page entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface
      */
     private function createDeleteForm(Page $page)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin.page.delete', array('page' => $page->getId())))
+            ->setAction($this->generateUrl('admin.page.delete', [
+                'page' => $page->getId()
+            ]))
             ->setMethod('DELETE')
             ->getForm()
         ;

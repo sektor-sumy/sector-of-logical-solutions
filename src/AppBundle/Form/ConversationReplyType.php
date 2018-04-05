@@ -17,17 +17,16 @@ class ConversationReplyType extends AbstractType
         $builder
             ->add('reply', TextType::class, [
                 'label' => false
-            ])
-        ;
+            ]);
     }
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\ConversationReply'
-        ));
+        ]);
     }
 
     /**
@@ -37,6 +36,4 @@ class ConversationReplyType extends AbstractType
     {
         return 'appbundle_conversation';
     }
-
-
 }

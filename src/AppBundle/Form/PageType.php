@@ -24,17 +24,17 @@ class PageType extends AbstractType
             ->add('metaTitle')
             ->add('metaDescription')
             ->add('metaKeywords')
-            ->add('content')
-        ;
+            ->add('content');
     }
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\Page'
-        ));
+        ]);
     }
 
     /**
@@ -44,6 +44,4 @@ class PageType extends AbstractType
     {
         return 'appbundle_page';
     }
-
-
 }

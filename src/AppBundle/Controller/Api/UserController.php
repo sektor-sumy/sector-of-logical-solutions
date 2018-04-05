@@ -38,23 +38,24 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/user/")
+     * @Rest\Post("/user")
      */
      public function postAction(Request $request)
      {
          $data = new User;
          $name = $request->get('name');
 
-
          if(empty($name) || empty($role))
          {
              return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
          }
+
          $data->setUsername($name);
 
          $em = $this->getDoctrine()->getManager();
          $em->persist($data);
          $em->flush();
+
          return new View("User Added Successfully", Response::HTTP_OK);
      }
 }

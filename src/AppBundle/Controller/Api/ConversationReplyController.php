@@ -16,17 +16,9 @@ use AppBundle\Entity\Conversation;
 class ConversationReplyController extends FOSRestController
 {
     /**
-     * @Rest\Post("/conversation_reply")
+     * @Rest\Post("/conversation-reply/add-reply")
      * @param Request $request
-     */
-    public function postConversationAction(Request $request)
-    {
-        
-    }
-
-    /**
-     * @Rest\Post("/conversation_reply/addreply")
-     * @param Request $request
+     * @return JsonResponse
      */
     public function addAction(Request $request)
     {
@@ -34,23 +26,30 @@ class ConversationReplyController extends FOSRestController
         $text = $request->get('text');
         $hash = $request->get('hash');
 
-        $conversation = $this->getDoctrine()->getManager()->getRepository(Conversation::class)->findOneBy([
-            'hash'=>$hash
-        ]);
+        $conversation = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository(Conversation::class)
+            ->findOneBy([
+                'hash'=>$hash
+            ]);
         if (!$conversation) {
             return new JsonResponse(['message'=>'conversation not found'], JsonResponse::HTTP_NOT_FOUND);
         }
         $conversationReply = new ConversationReply();
-
         $conversationReply->setAuthor($email);
         $conversationReply->setReply($text);
         $conversationReply->setConversation($conversation);
 
-
         $em = $this->getDoctrine()->getManager();
-        $em->persist($conversationReply);
-        $em->flush();
 
+        try {
+            $em->persist($conversationReply);
+            $em->flush();
+        } catch (\Exception $e) {
+            $this->get('logger')->error($e, ['exception' => $e]);
+            $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+        }
         return new JsonResponse([
             'message' => 'success',
             'id' => $conversationReply->getId()

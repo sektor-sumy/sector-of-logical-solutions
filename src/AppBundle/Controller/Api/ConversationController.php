@@ -18,6 +18,7 @@ class ConversationController extends FOSRestController
     /**
      * @Rest\Post("/conversation")
      * @param Request $request
+     * @return JsonResponse
      */
     public function postCreatedAction(Request $request)
     {
@@ -25,21 +26,24 @@ class ConversationController extends FOSRestController
         $text = $request->get('text');
 
         $conversation = new Conversation();
-
         $conversation->setEmail($email);
         $conversation->setText($text);
 
-
         $em = $this->getDoctrine()->getManager();
-        $em->persist($conversation);
-        $em->flush();
-
+        try {
+            $em->persist($conversation);
+            $em->flush();
+        } catch (\Exception $e) {
+            $this->get('logger')->error($e, ['exception' => $e]);
+            $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+        }
         return new JsonResponse(['message' => 'success']);
     }
 
     /**
      * @Rest\Get("/conversation/{hash}")
      * @param string $hash
+     * @return View
      */
     public function getAction($hash)
     {

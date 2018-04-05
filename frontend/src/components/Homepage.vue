@@ -13,7 +13,7 @@
                 v-for="item in menu"
                 class="nav-item"
             >
-                <a class="nav-link js-scroll-trigger" v-scroll-to="'#contact'">{{ item.title }}</a>
+                <a class="nav-link js-scroll-trigger" v-scroll-to="{ element: '#'+item.slug }">{{ item.title }}</a>
             </li>
           </ul>
         </div>
@@ -31,13 +31,15 @@
       </div>
     </header>
 
-    <!-- Services -->
-    <section id="services">
+    <section
+      v-for="item in menu"
+      v-bind:id="item.slug"
+    >
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Services</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">{{ item.title }}</h2>
+            <h3 class="section-subheading text-muted">{{ item.created_at}}</h3>
           </div>
         </div>
         <div class="row text-center">
@@ -47,7 +49,7 @@
               <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">E-Commerce</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <p class="text-muted">{{ item.content }}</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -68,6 +70,7 @@
         </div>
       </div>
     </section>
+
 
     <!-- Portfolio Grid -->
     <section class="bg-light" id="portfolio">
@@ -168,7 +171,7 @@
     </section>
 
     <!-- About -->
-    <section id="about">
+    <section id="about2">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -249,7 +252,7 @@
     </section>
 
     <!-- Team -->
-    <section class="bg-light" id="team">
+    <section class="bg-light" id="team3">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -368,7 +371,7 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact">
+    <section id="contact11">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -507,7 +510,7 @@ export default {
     axios.get(`http://dev.logical.net/api/page?homepage=true`)
       .then(response => {
       this.content = response.data
-      document.title = this.content.title
+      document.title = 'Главная'
     })
     axios.get(`http://dev.logical.net/api/pagemenu`)
       .then(response => {

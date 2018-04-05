@@ -7,6 +7,10 @@ namespace AppBundle\Repository;
  */
 class ConversationRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param $hash
+     * @return array
+     */
     public function getConversationByHash($hash)
     {
         $query = $this->createQueryBuilder('c')

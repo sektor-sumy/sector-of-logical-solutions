@@ -32,9 +32,9 @@ class ConversationController extends Controller
 
         //$this->get('app.service.email_notification')->sendEmail('adswweq');
 
-        return $this->render('backend/conversation/index.html.twig', array(
+        return $this->render('backend/conversation/index.html.twig', [
             'conversations' => $conversations,
-        ));
+        ]);
     }
 
     /**
@@ -58,24 +58,30 @@ class ConversationController extends Controller
             $conversationReply = $form->getData();
             $conversationReply->setAuthor($this->getUser()->getEmail());
             $conversationReply->setConversation($conversation);
-            $this->getDoctrine()->getManager()->persist($conversationReply);
-            $this->getDoctrine()->getManager()->flush();
+            try {
+                $this->getDoctrine()->getManager()->persist($conversationReply);
+                $this->getDoctrine()->getManager()->flush();
+            } catch (\Exception $e) {
+                $this->get('logger')->error($e, ['exception' => $e]);
+                $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+            }
+            try {
+                $this->get('app.service.email_notification')->sendEmail($conversation->getEmail(), $conversationReply->getReply());
+            } catch (\Exception $e) {
+                $this->get('logger')->error($e, ['exception' => $e]);
+                $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred. Mail not send'));
+            }
 
-
-            $conversation = $conversationReply->getConversation();
-
-            $reply = $conversationReply->getReply();
-
-            $this->get('app.service.email_notification')->sendEmail($conversation->getEmail(),$reply);
-
-
-            return $this->redirectToRoute('admin.conversation.show', array('conversation' => $conversation->getId()));
+            return $this->redirectToRoute('admin.conversation.show', [
+                'conversation' => $conversation->getId()
+            ]);
         }
-        return $this->render('backend/conversation/show.html.twig', array(
+
+        return $this->render('backend/conversation/show.html.twig', [
             'conversation' => $conversation,
             'delete_form' => $deleteForm->createView(),
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -94,8 +100,13 @@ class ConversationController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($conversation);
-            $em->flush();
+            try {
+                $em->remove($conversation);
+                $em->flush();
+            } catch (\Exception $e) {
+                $this->get('logger')->error($e, ['exception' => $e]);
+                $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
+            }
         }
 
         return $this->redirectToRoute('admin.conversation.index');
@@ -105,14 +116,15 @@ class ConversationController extends Controller
      * Creates a form to delete a page entity.
      *
      * @param Conversation $conversation The page entity
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface
      */
     private function createDeleteForm(Conversation $conversation)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin.conversation.delete', array('conversation' => $conversation->getId())))
+            ->setAction($this->generateUrl('admin.conversation.delete', [
+                'conversation' => $conversation->getId()
+            ]))
             ->setMethod('DELETE')
-            ->getForm()
-            ;
+            ->getForm();
     }
 }

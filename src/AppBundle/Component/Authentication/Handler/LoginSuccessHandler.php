@@ -29,7 +29,6 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         }
         elseif ($this->security->isGranted('ROLE_USER'))
         {
-            // redirect the user to where they were before the login process begun.
             $referer_url = $request->headers->get('referer');
 
             $response = new RedirectResponse($referer_url);
@@ -37,5 +36,4 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
         return $response;
     }
-
 }

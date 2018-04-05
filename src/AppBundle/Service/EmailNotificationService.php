@@ -23,10 +23,8 @@ class EmailNotificationService
         $message = (new \Swift_Message('SoLS'))
             ->setFrom('send@example.com')
             ->setTo($mail)
-            ->setBody($reply)
-        ;
+            ->setBody($reply);
 
         $this->mailer->send($message);
     }
-
 }

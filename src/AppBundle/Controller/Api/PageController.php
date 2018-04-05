@@ -23,7 +23,6 @@ class PageController extends FOSRestController
         $isHomepage = $request->get('homepage',false);
         if ($isHomepage) {
             $results = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(['homepage'=>true]);
-
         } else {
             $results = $this->getDoctrine()->getRepository('AppBundle:Page')->findAll();
         }
@@ -56,7 +55,6 @@ class PageController extends FOSRestController
     public function getAllMenuAction()
     {
         $results = $this->getDoctrine()->getRepository('AppBundle:Page')->findBy(['inMenu'=>true]);
-
 
         if (empty($results)) {
             return new View("page not found", Response::HTTP_NOT_FOUND);

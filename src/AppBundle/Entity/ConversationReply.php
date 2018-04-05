@@ -108,5 +108,4 @@ class ConversationReply
     {
         $this->reply = $reply;
     }
-
 }
