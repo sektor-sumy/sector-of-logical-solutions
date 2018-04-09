@@ -2,21 +2,56 @@
 
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\ConversationReply;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
+use AppBundle\Entity\ConversationReply;
 use AppBundle\Entity\Conversation;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
+use FOS\RestBundle\Controller\Annotations\Route;
 
 class ConversationReplyController extends FOSRestController
 {
     /**
+     * Add new reply in conversation.
+     *
      * @Rest\Post("/conversation-reply/add-reply")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns id the reply.",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=Conversation::class, groups={"full"}))
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="conversation not found"
+     * )
+     * @SWG\Tag(name="ConversationReply")
+     * @SWG\Parameter(
+     *     name="email",
+     *     in="query",
+     *     type="string",
+     *     description="Email user"
+     * )
+     * @SWG\Parameter(
+     *     name="text",
+     *     in="query",
+     *     type="string",
+     *     description="Text of reply"
+     * )
+     * @SWG\Parameter(
+     *     name="hash",
+     *     in="query",
+     *     type="string",
+     *     description="Hash of conversation"
+     * )
      * @param Request $request
      * @return JsonResponse
      */

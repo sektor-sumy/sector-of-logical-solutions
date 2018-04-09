@@ -87,17 +87,6 @@ doctrine_migrations:
     table_name: migration_versions
     name: Application Migrations
 
-# Nelmio CORS Configuration
-nelmio_cors:
-    defaults:
-        allow_credentials: false
-        allow_origin: ['*']
-        allow_headers: ['*']
-        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-        max_age: 3600
-        hosts: []
-        origin_regex: false
-
 # FOSRest Configuration
 fos_rest:
     body_listener: true
@@ -110,3 +99,8 @@ fos_rest:
         view_response_listener: 'force'
         formats:
             json: true
+
+nelmio_api_doc:
+    areas:
+        path_patterns:
+            - ^/api(?!/doc$)

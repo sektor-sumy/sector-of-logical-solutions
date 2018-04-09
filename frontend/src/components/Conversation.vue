@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     sendReply: function () {
-      axios.post(`http://dev.logical.net/api/conversation_reply/addreply`, {
+      axios.post(`http://dev.logical.net/api/conversation-reply/add-reply`, {
         email: this.conversation.email,
         text: this.writetext,
         hash: this.conversation.hash
