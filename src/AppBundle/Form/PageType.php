@@ -2,6 +2,9 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\PageTranslation;
+use Knp\DoctrineBehaviors\Model\Translatable\Translation;
+use MongoDB\BSON\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +27,9 @@ class PageType extends AbstractType
             ->add('metaTitle')
             ->add('metaDescription')
             ->add('metaKeywords')
-            ->add('content');
+            ->add('content')
+            ->add('contentEn', TextType::class, ['mapped' => false])
+        ;
     }
 
     /**

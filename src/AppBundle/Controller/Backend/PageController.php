@@ -21,6 +21,8 @@ class PageController extends Controller
      * Lists all page entities.
      *
      * @Route("/", name="admin.page.index")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
@@ -37,6 +39,7 @@ class PageController extends Controller
      * Creates a new page entity.
      *
      * @Route("/new", name="admin.page.new")
+     *
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -49,18 +52,22 @@ class PageController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $page = $form->getData();
+            $page->translate('en')->setTitle('content eng');
+            $page->translate('fr')->setTitle('Заголовок на французском языке');
+            $em = $this->get('doctrine.orm.entity_manager');
             try {
                 $em->persist($page);
-                $em->flush();
+                $page->mergeNewTranslations();
 
+                $em->flush();
             } catch (\Exception $e) {
+                dump($e->getMessage()); die;
                 $this->get('logger')->error($e, ['exception' => $e]);
                 $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
             }
 
-            return $this->redirectToRoute('admin.page.show', [
-                'page' => $page->getId()
-            ]);
+            return $this->redirectToRoute('admin.page.show', ['page' => $page->getId()]);
         }
 
         return $this->render('backend/page/new.html.twig', [
@@ -73,7 +80,9 @@ class PageController extends Controller
      * Finds and displays a page entity.
      *
      * @Route("/show/{page}", name="admin.page.show")
+     *
      * @param Page $page
+     *
      * @ParamConverter("page", class="AppBundle:Page")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -95,7 +104,9 @@ class PageController extends Controller
      *
      * @param Request $request
      * @param Page $page
+     *
      * @ParamConverter("page", class="AppBundle:Page")
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Page $page)
@@ -113,7 +124,7 @@ class PageController extends Controller
             }
 
             return $this->redirectToRoute('admin.page.edit', [
-                'page' => $page->getId()
+                'page' => $page->getId(),
             ]);
         }
 
@@ -128,7 +139,9 @@ class PageController extends Controller
      * choise home page
      *
      * @Route("/homepage", name="admin.page.homepage")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function homepageAction(Request $request)
@@ -162,7 +175,9 @@ class PageController extends Controller
      * choise page in menu
      *
      * @Route("/inmenu", name="admin.page.inmenu")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function inMenuAction(Request $request)
@@ -187,9 +202,12 @@ class PageController extends Controller
      * Deletes a page entity.
      *
      * @Route("/delete/{page}", name="admin.page.delete")
+     *
      * @param Request $request
      * @param Page $page
+     *
      * @ParamConverter("page", class="AppBundle:Page")
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Page $page)

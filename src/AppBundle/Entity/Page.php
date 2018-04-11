@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PageRepository")
@@ -10,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Page
 {
+    use ORMBehaviors\Translatable\Translatable;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -18,20 +21,22 @@ class Page
     protected $id;
     /**
      * @var string
+     *
      * @ORM\Column(name="slug", type="string", length=255, nullable=false, unique=true)
      */
     protected $slug;
     /**
-     * @ORM\Column(name="homepage", type="boolean",  nullable=false, options={"default":0})
+     * @ORM\Column(name="homepage", type="boolean",  nullable=false, options={"default":false})
      */
     protected $homepage;
 
     /**
-     * @ORM\Column(name="in_menu", type="boolean",  nullable=false, options={"default":0})
+     * @ORM\Column(name="in_menu", type="boolean",  nullable=false, options={"default":false})
      */
     protected $inMenu;
     /**
      * @var string
+     *
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     protected $title;
@@ -41,11 +46,13 @@ class Page
     protected $metaTitle;
     /**
      * @var string
+     *
      * @ORM\Column(name="meta_description", type="text", nullable=true)
      */
     protected $metaDescription;
     /**
      * @var string
+     *
      * @ORM\Column(name="meta_keywords", type="text", nullable=true)
      */
     protected $metaKeywords;
@@ -59,15 +66,20 @@ class Page
     protected $removedAt;
     /**
      * @var string
+     *
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     protected $content;
 
-
+    /**
+     * Page constructor.
+     */
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->homepage = false;
+        $this->inMenu = false;
+        $this->someFieldYouDoNotNeedToTranslate = false;
     }
 
 
@@ -178,7 +190,7 @@ class Page
     /**
      * Get metaTitle
      *
-     * @return string
+     * @return mixed
      */
     public function getMetaTitle()
     {
@@ -304,4 +316,9 @@ class Page
     {
         return $this->content;
     }
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $someFieldYouDoNotNeedToTranslate;
 }

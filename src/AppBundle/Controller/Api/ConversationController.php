@@ -14,6 +14,9 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use FOS\RestBundle\Controller\Annotations\Route;
 
+/**
+ * Class ConversationController
+ */
 class ConversationController extends FOSRestController
 {
     /**
@@ -22,6 +25,7 @@ class ConversationController extends FOSRestController
      * This call add new converastion.
      *
      * @Route("/conversation", methods={"POST"})
+     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns the rewards of an user",
@@ -42,7 +46,9 @@ class ConversationController extends FOSRestController
      *     description="Text of conversation"
      * )
      * @SWG\Tag(name="Conversation")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function postCreatedAction(Request $request)
@@ -62,6 +68,7 @@ class ConversationController extends FOSRestController
             $this->get('logger')->error($e, ['exception' => $e]);
             $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
         }
+
         return new JsonResponse(['message' => 'success']);
     }
 
@@ -71,6 +78,7 @@ class ConversationController extends FOSRestController
      * This call return conversation on page by hash.
      *
      * @Rest\Get("/conversation/{hash}")
+     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns the conversation",
@@ -84,17 +92,20 @@ class ConversationController extends FOSRestController
      *     description="Page not found"
      * )
      * @SWG\Tag(name="Conversation")
+     *
      * @param string $hash
+     *
      * @return View
      */
     public function getAction($hash)
     {
-        $result = $this->getDoctrine()->getRepository(Conversation::class)->findOneBy([
-            'hash' => $hash,
-            ]);
+        $result = $this->getDoctrine()->getRepository(Conversation::class)
+            ->findOneBy(['hash' => $hash]);
+
         if (!$result) {
             return new View("page not found", Response::HTTP_NOT_FOUND);
         }
+
         return $result->toArray();
     }
 }

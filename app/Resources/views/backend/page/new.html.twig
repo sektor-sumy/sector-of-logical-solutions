@@ -29,11 +29,36 @@
                     {{ form_widget(form.metaKeywords, {'attr':{'class':'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_label(form.content) }}
-                    {{ form_widget(form.content, {'attr':{
-                        'class':'form-control',
-                        'rows':'10'
-                    }}) }}
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active">
+                            <a class="nav-link active" href="#profile" role="tab" data-toggle="tab" aria-expanded="true">English</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">Русский</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="profile">
+                            <div class="form-group">
+                                {{ form_label(form.content) }}
+                                {{ form_widget(form.content, {'attr':{
+                                    'class':'form-control',
+                                    'rows':'10'
+                                }}) }}
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="buzz">
+                            <div class="form-group">
+                                {{ form_label(form.content) }}
+                                {{ form_widget(form.content, {'attr':{
+                                    'class':'form-control',
+                                    'rows':'10'
+                                }}) }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <input class="btn btn-success btn-sm" type="submit" value="Create page" />
             </div>

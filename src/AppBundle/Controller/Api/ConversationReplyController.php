@@ -15,12 +15,16 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use FOS\RestBundle\Controller\Annotations\Route;
 
+/**
+ * Class ConversationReplyController
+ */
 class ConversationReplyController extends FOSRestController
 {
     /**
      * Add new reply in conversation.
      *
      * @Rest\Post("/conversation-reply/add-reply")
+     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns id the reply.",
@@ -53,6 +57,7 @@ class ConversationReplyController extends FOSRestController
      *     description="Hash of conversation"
      * )
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function addAction(Request $request)
@@ -61,22 +66,17 @@ class ConversationReplyController extends FOSRestController
         $text = $request->get('text');
         $hash = $request->get('hash');
 
-        $conversation = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository(Conversation::class)
-            ->findOneBy([
-                'hash'=>$hash
-            ]);
+        $em = $this->getDoctrine()->getManager();
+        $conversation = $em->getRepository(Conversation::class)->findOneBy(['hash' => $hash]);
+
         if (!$conversation) {
-            return new JsonResponse(['message'=>'conversation not found'], JsonResponse::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'conversation not found'], JsonResponse::HTTP_NOT_FOUND);
         }
+
         $conversationReply = new ConversationReply();
         $conversationReply->setAuthor($email);
         $conversationReply->setReply($text);
         $conversationReply->setConversation($conversation);
-
-        $em = $this->getDoctrine()->getManager();
 
         try {
             $em->persist($conversationReply);
@@ -85,9 +85,7 @@ class ConversationReplyController extends FOSRestController
             $this->get('logger')->error($e, ['exception' => $e]);
             $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
         }
-        return new JsonResponse([
-            'message' => 'success',
-            'id' => $conversationReply->getId()
-        ]);
+
+        return new JsonResponse(['message' => 'success', 'id' => $conversationReply->getId()]);
     }
 }

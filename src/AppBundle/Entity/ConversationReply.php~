@@ -108,18 +108,4 @@ class ConversationReply
     {
         $this->reply = $reply;
     }
-
-    /**
-     * Set createdAt.
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return ConversationReply
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
 }

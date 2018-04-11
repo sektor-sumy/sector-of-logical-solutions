@@ -13,8 +13,9 @@ use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use FOS\RestBundle\Controller\Annotations\Route;
 
-
-
+/**
+ * Class UserController
+ */
 class UserController extends FOSRestController
 {
     /**
@@ -23,6 +24,7 @@ class UserController extends FOSRestController
      * Get users.
      *
      * @Rest\Get("/user")
+     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns users",
@@ -40,23 +42,27 @@ class UserController extends FOSRestController
      *     description="there are no users exist"
      * )
      * @SWG\Tag(name="User")
-     * @param string $slug
-     * @return JsonResponse
+     *
+     * @return \AppBundle\Entity\Page[]|User[]|array|View
      */
     public function getAction()
     {
-        $restresult = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
-        if ($restresult === null) {
+        $restResult = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        if (null === $restResult) {
             return new View("there are no users exist", Response::HTTP_NOT_FOUND);
         }
-        return $restresult;
+
+        return $restResult;
     }
+
     /**
      * Get user by id.
      *
      * Get user.
      *
      * @Rest\Get("/user/{id}")
+     *
      * @SWG\Response(
      *     response=200,
      *     description="Return user by id",
@@ -74,16 +80,20 @@ class UserController extends FOSRestController
      *     description="there are no users exist"
      * )
      * @SWG\Tag(name="User")
+     *
      * @param string $id
-     * @return JsonResponse
+     *
+     * @return User|View|null|object
      */
     public function idAction($id)
     {
-        $singleresult = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
-        if ($singleresult === null) {
+        $singleResult = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        if (null === $singleResult) {
             return new View("user not found", Response::HTTP_NOT_FOUND);
         }
-        return $singleresult;
+
+        return $singleResult;
     }
 
     /**
@@ -92,6 +102,7 @@ class UserController extends FOSRestController
      * Get user.
      *
      * @Rest\Post("/user")
+     *
      * @SWG\Response(
      *     response=200,
      *     description="Return user by id",
@@ -109,25 +120,26 @@ class UserController extends FOSRestController
      *     description="there are no users exist"
      * )
      * @SWG\Tag(name="User")
-     * @param string $id
-     * @return JsonResponse
+     *
+     * @param Request $request
+     *
+     * @return View
      */
-     public function postAction(Request $request)
-     {
-         $data = new User;
-         $name = $request->get('name');
+    public function postAction(Request $request)
+    {
+        $user = new User();
+        $name = $request->get('name');
 
-         if(empty($name) || empty($role))
-         {
-             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
-         }
+        if ((empty($name)) || (empty($role))) {
+            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
+        }
 
-         $data->setUsername($name);
+        $user->setUsername($name);
 
-         $em = $this->getDoctrine()->getManager();
-         $em->persist($data);
-         $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
 
-         return new View("User Added Successfully", Response::HTTP_OK);
-     }
+        return new View("User Added Successfully", Response::HTTP_OK);
+    }
 }

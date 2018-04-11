@@ -26,6 +26,12 @@ default:
       expand: true
       flatten: true
       src:
+        - ./vendor-web/bootstrap/dist/js/bootstrap.js
+      dest: web/js
+    -
+      expand: true
+      flatten: true
+      src:
         - ./vendor-web/AdminLTE/dist/img/*
       dest: web/dist/img
 

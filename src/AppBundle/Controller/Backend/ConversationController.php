@@ -20,31 +20,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class ConversationController extends Controller
 {
     /**
-     * Lists all conversations.
-     *
-     * @Route("/", name="admin.conversation.index")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $conversations = $em->getRepository(Conversation::class)->findAll();
-
-        //$this->get('app.service.email_notification')->sendEmail('adswweq');
-
-        return $this->render('backend/conversation/index.html.twig', [
-            'conversations' => $conversations,
-        ]);
-    }
-
-    /**
      * Finds and displays a conversation entity.
      *
      * @Route("/show/{conversation}", name="admin.conversation.show")
+     *
      * @param Conversation $conversation
+     * @param Request $request
+     *
      * @ParamConverter("conversation", class="AppBundle:Conversation")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Conversation $conversation, Request $request)
     {
@@ -58,18 +43,23 @@ class ConversationController extends Controller
             $conversationReply = $form->getData();
             $conversationReply->setAuthor($this->getUser()->getEmail());
             $conversationReply->setConversation($conversation);
+
+            $em = $this->getDoctrine()->getManager();
             try {
-                $this->getDoctrine()->getManager()->persist($conversationReply);
-                $this->getDoctrine()->getManager()->flush();
+                $em->persist($conversationReply);
+                $em->flush();
             } catch (\Exception $e) {
                 $this->get('logger')->error($e, ['exception' => $e]);
                 $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
             }
             try {
-                $this->get('app.service.email_notification')->sendEmail($conversation->getEmail(), $conversationReply->getReply());
+                $this->get('app.service.email_notification')
+                    ->sendEmail($conversation->getEmail(), $conversationReply->getReply());
             } catch (\Exception $e) {
                 $this->get('logger')->error($e, ['exception' => $e]);
-                $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred. Mail not send'));
+                $this->addFlash('error', $this->get('translator')
+                    ->trans('Unexpected error occurred. Mail not send')
+                );
             }
 
             return $this->redirectToRoute('admin.conversation.show', [
@@ -85,12 +75,33 @@ class ConversationController extends Controller
     }
 
     /**
+     * Lists all conversations.
+     *
+     * @Route("/", name="admin.conversation.index")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $conversations = $em->getRepository(Conversation::class)->findAll();
+
+        //$this->get('app.service.email_notification')->sendEmail('adswweq');
+
+        return $this->render('backend/conversation/index.html.twig', ['conversations' => $conversations]);
+    }
+
+    /**
      * Deletes a page entity.
      *
      * @Route("/delete/{conversation}", name="admin.conversation.delete")
+     *
      * @param Request $request
      * @param Conversation $conversation
+     *
      * @ParamConverter("conversation", class="AppBundle:Conversation")
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Conversation $conversation)
@@ -115,7 +126,8 @@ class ConversationController extends Controller
     /**
      * Creates a form to delete a page entity.
      *
-     * @param Conversation $conversation The page entity
+     * @param Conversation $conversation
+     *
      * @return \Symfony\Component\Form\FormInterface
      */
     private function createDeleteForm(Conversation $conversation)

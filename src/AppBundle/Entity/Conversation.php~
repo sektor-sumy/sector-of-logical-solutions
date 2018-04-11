@@ -201,32 +201,4 @@ class Conversation
             'conversationReplies' => $this->getConversationRepliesByArray()
         ];
     }
-
-    /**
-     * Set hash.
-     *
-     * @param string $hash
-     *
-     * @return Conversation
-     */
-    public function setHash($hash)
-    {
-        $this->hash = $hash;
-
-        return $this;
-    }
-
-    /**
-     * Set createdAt.
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Conversation
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
 }
