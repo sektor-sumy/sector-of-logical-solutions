@@ -1,9 +1,18 @@
 <template>
   <div>
+    <div class="switch-lang">
+      <span @click="switchLang('en')">Eng</span>
+      <span @click="switchLang('ru')">Rus</span>
+    </div>
+
+    <div class="go-to-up" v-bind:class="{ 'off': bodyScroll }" v-scroll-to="{element :'#page-top'}">
+      Up
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" v-bind:class="{ 'navbar-shrink': bodyScroll }" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" v-scroll-to="'#page-top'">Start Bootstrap</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button @click="actionMenu" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
         </button>
@@ -13,7 +22,7 @@
                 v-for="item in menu"
                 class="nav-item"
             >
-                <a class="nav-link js-scroll-trigger" v-scroll-to="{ element: '#'+item.slug }">{{ item.title }}</a>
+                <a class="nav-link js-scroll-trigger" v-scroll-to="{ element: '#'+item.slug }">{{ item.contentLang[locale].title }}</a>
             </li>
           </ul>
         </div>
@@ -38,8 +47,8 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">{{ item.title }}</h2>
-            <h3 class="section-subheading text-muted">{{ item.created_at}}</h3>
+            <h2 class="section-heading text-uppercase">{{ item.contentLang[locale].title }}</h2>
+            <h3 class="section-subheading text-muted">{{ item.contentLang[locale].title }}</h3>
           </div>
         </div>
         <div class="row text-center">
@@ -49,7 +58,7 @@
               <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">E-Commerce</h4>
-            <p class="text-muted">{{ item.content }}</p>
+            <p class="text-muted">{{ item.contentLang[locale].content }}</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -503,9 +512,11 @@ export default {
       content: {},
       contentload: 0,
       bodyScroll: 0,
-      menu: {}
+      menu: {},
+      locale: 0
     }
   },
+  props: ['lang'],
   mounted: function () {
     axios.get(`http://dev.logical.net/api/page?homepage=true`)
       .then(response => {
@@ -517,12 +528,32 @@ export default {
       this.menu = response.data
     })
   },
+  watch: {
+    lang: function () {
+      if (this.$cookie.get('lang')=="en") {
+        this.locale = 0
+      } else {
+        this.locale = 1
+      }
+    }
+  },
   methods: {
     handleScroll: function () {
       if (window.pageYOffset > 100) {
           this.bodyScroll = 1
       } else {
           this.bodyScroll = 0
+      }
+    },
+    switchLang: function (lang) {
+      this.$emit('swLang', lang);
+    },
+    actionMenu: function () {
+      var menu = document.getElementById('navbarResponsive')
+      if (menu.classList.contains('show')) {
+        menu.classList.remove('show')
+      } else {
+        menu.classList.add('show')
       }
     }
   },
@@ -547,5 +578,51 @@ export default {
   }
   .navbar-brand {
     cursor: pointer;
+  }
+
+  .switch-lang {
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.51);
+  }
+  .switch-lang span {
+    width: 100%;
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    font-size: 14px;
+    color: #aaa;
+    text-align: center;
+  }
+  .switch-lang span:hover {
+    cursor: pointer;
+    color: #ccc;
+  }
+  .switch-lang span .active {
+    color: #fff;
+  }
+
+  .go-to-up {
+    position: fixed;
+    z-index: 2000;
+    cursor: pointer;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.51);
+    transition: 0.3s;
+  }
+  .go-to-up.off {
+    opacity: 1;
   }
 </style>
