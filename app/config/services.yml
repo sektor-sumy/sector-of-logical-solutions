@@ -11,4 +11,10 @@ services:
             - { name: 'monolog.logger', channel: 'security' }
     app.service.email_notification:
         class: AppBundle\Service\EmailNotificationService
-        arguments:  ['@mailer']
+        arguments:  ['@mailer', '@doctrine.orm.entity_manager', '@templating.engine.twig']
+
+    page.listener:
+        class: AppBundle\EventListener\PageListener
+        arguments: ['@app.service.email_notification']
+        tags:
+             - { name: kernel.event_listener, event: add.new.page, method: addNewPage }

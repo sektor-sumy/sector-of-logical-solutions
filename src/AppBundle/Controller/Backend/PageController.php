@@ -3,12 +3,15 @@
 namespace AppBundle\Controller\Backend;
 
 use AppBundle\Entity\Page;
+use AppBundle\Event\AddNewPageEvent;
+use AppBundle\EventListener\PageListener;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Page controller.
@@ -22,16 +25,31 @@ class PageController extends Controller
      *
      * @Route("/", name="admin.page.index")
      *
+     * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager()->getRepository(Page::class)->findAll();
 
-        $pages = $em->getRepository('AppBundle:Page')->findAll();
+        $paginator  = $this->get('knp_paginator');
+
+
+        //$page = $em[1];
+        //$this->get('app.service.email_notification')->sendAdminPageNotificationTest($page, $this->getUser());
+
+
+        /** @var $pagination */
+        $pagination = $paginator->paginate(
+            $em, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 5)/*limit per page*/
+        );
 
         return $this->render('backend/page/index.html.twig', [
-            'pages' => $pages,
+            'pages' => $em,
+            'pagination' => $pagination,
         ]);
     }
 
@@ -53,16 +71,17 @@ class PageController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $page = $form->getData();
-            $page->translate('en')->setTitle('content eng');
-            $page->translate('fr')->setTitle('Заголовок на французском языке');
+
             $em = $this->get('doctrine.orm.entity_manager');
             try {
                 $em->persist($page);
                 $page->mergeNewTranslations();
 
                 $em->flush();
+
+                $addNewPageEvent = new AddNewPageEvent($page, $this->getUser());
+                $this->get('event_dispatcher')->dispatch($addNewPageEvent->getName(), $addNewPageEvent);
             } catch (\Exception $e) {
-                dump($e->getMessage()); die;
                 $this->get('logger')->error($e, ['exception' => $e]);
                 $this->addFlash('error', $this->get('translator')->trans('Unexpected error occurred.'));
             }

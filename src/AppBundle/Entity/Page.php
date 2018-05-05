@@ -82,6 +82,40 @@ class Page
         $this->someFieldYouDoNotNeedToTranslate = false;
     }
 
+    /**
+     * @return array
+     */
+    public function toArrayLang()
+    {
+        return [
+            'slug' => $this->getSlug(),
+            'contentLang' => (array) $this->getContentLang()
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getContentLang()
+    {
+        $titleLangs = [];
+
+        /** @var $titleLang */
+        foreach ($this->getTranslations() as $titleLang) {
+            array_push($titleLangs, [
+                'title' => $titleLang->getTitle(),
+                'content' => $titleLang->getContent(),
+                'locale' => $titleLang->getLocale()
+            ]);
+            /*$titleLangs[$titleLang->getLocale()] = [
+                'title' => $titleLang->getTitle(),
+                'content' => $titleLang->getContent(),
+            ];*/
+        }
+
+        return (array) $titleLangs;
+    }
+
 
     /**
      * Get id

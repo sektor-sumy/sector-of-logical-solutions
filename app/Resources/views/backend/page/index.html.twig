@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for page in pages %}
+                    {% for page in pagination %}
                         <tr>
                             <td>{{ page.id }}</td>
                             <td>{{ page.slug }}</td>
@@ -61,6 +61,9 @@
             </div>
             <!-- /.box-body -->
         </div>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
         <!-- /.box -->
         <a class="btn btn-success btn-sm" href="{{ path('admin.page.new') }}">Create a new</a>
     </div>
@@ -76,7 +79,7 @@
 
             var homepage = $('.homepage');
 
-            homepage.click(function (e) {
+            homepage.unbind('click').click(function (e) {
                 var pageId = $(this).data('id');
                 $.ajax({
                     type: "GET",

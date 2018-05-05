@@ -157,11 +157,18 @@ class PageController extends FOSRestController
     public function getAllMenuAction()
     {
         $results = $this->getDoctrine()->getRepository(Page::class)->findBy(['inMenu' => true]);
+        $resultToArray = [];
+        /** @var Page $result */
+        foreach ($results as $result) {
+            //$resultToArray[$result]
+            array_push($resultToArray, $result->toArrayLang())
+            ;
+        }
 
         if (empty($results)) {
             return new View("page not found", Response::HTTP_NOT_FOUND);
         }
 
-        return $results;
+        return $resultToArray;
     }
 }
