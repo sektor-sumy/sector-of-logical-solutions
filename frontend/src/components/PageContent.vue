@@ -21,38 +21,39 @@
 </template>
 
 <script>
-import axios from 'axios'
-import PageMenu from '../components/Page/PageMenu'
-import PageFooter from '../components/Page/PageFooter'
-import PageWidget from '../components/Page/PageWidget'
-export default {
-  name: 'page-content',
-  components: {
-    PageMenu: PageMenu,
-    PageFooter: PageFooter,
-    PageWidget: PageWidget
-  },
-  data () {
-    return {
-      content: {}
+    import axios from 'axios'
+    import PageMenu from '../components/Page/PageMenu'
+    import PageFooter from '../components/Page/PageFooter'
+    import PageWidget from '../components/Page/PageWidget'
+
+    export default {
+        name: 'page-content',
+        components: {
+            PageMenu: PageMenu,
+            PageFooter: PageFooter,
+            PageWidget: PageWidget
+        },
+        data() {
+            return {
+                content: {}
+            }
+        },
+        mounted: function () {
+            if (this.$route.path === '/') {
+                axios.get(`${this.$root.host}/api/page?homepage=true`)
+                    .then(response => {
+                        this.content = response.data;
+                        document.title = this.content.title;
+                    })
+            } else {
+                axios.get(`${this.$root.host}/api/page` + this.$route.path)
+                    .then(response => {
+                        this.content = response.data;
+                        document.title = this.content.title;
+                    })
+            }
+        }
     }
-  },
-  mounted: function () {
-    if (this.$route.path == '/') {
-      axios.get(`http://dev.logical.net/api/page?homepage=true`)
-        .then(response => {
-        this.content = response.data
-        document.title = this.content.title
-      })
-    } else {
-      axios.get(`http://dev.logical.net/api/page` + this.$route.path)
-        .then(response => {
-        this.content = response.data
-        document.title = this.content.title
-      })
-    }
-  }
-}
 </script>
 
 <style>

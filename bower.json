@@ -18,7 +18,6 @@
   "dependencies": {
     "bootstrap": "3.3.*",
     "jquery": "3.3.*",
-    "jquery-easing": "git@github.com:gdsmith/jquery.easing.git#v1.4.1",
     "jquery-ui": "1.11.4",
     "jquery.sparkline": "2.1.2",
     "jquery-slimscroll": "1.3.*",

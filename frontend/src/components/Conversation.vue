@@ -9,14 +9,16 @@
                     <div class="chat-message" id="body-chat">
                         <ul class="chat">
                             <div
-                                v-for="item in conversation.conversationReplies"
-                                :key="item.id"
-                                >
+                                    v-for="item in conversation.conversationReplies"
+                                    :key="item.id"
+                            >
                                 <li class="right" v-if="item.author == conversation.email">
                                     <div class="chat-body clearfix">
                                         <div class="header">
                                             <strong class="primary-font"> {{ item.author }}</strong>
-                                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ item.createdAt }}</small>
+                                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{
+                                                item.createdAt }}
+                                            </small>
                                         </div>
                                         <p>
                                             {{ item.reply }}
@@ -27,7 +29,9 @@
                                     <div class="chat-body clearfix">
                                         <div class="header">
                                             <strong class="primary-font"> {{ item.author }}</strong>
-                                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ item.createdAt }}</small>
+                                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{
+                                                item.createdAt }}
+                                            </small>
                                         </div>
                                         <p>
                                             {{ item.reply }}
@@ -39,8 +43,11 @@
                     </div>
                     <div class="chat-box bg-white">
                         <div class="input-group">
-                            <input v-on:keyup.enter="sendReply" v-model="writetext" class="form-control border no-shadow no-rounded" placeholder="Type your message here">
-                            <span class="input-group-btn"><button @click="sendReply" class="btn btn-success no-rounded" type="button">Send</button></span>
+                            <input v-on:keyup.enter="sendReply" v-model="writetext"
+                                   class="form-control border no-shadow no-rounded"
+                                   placeholder="Type your message here">
+                            <span class="input-group-btn"><button @click="sendReply" class="btn btn-success no-rounded"
+                                                                  type="button">Send</button></span>
                         </div>
                     </div>
                 </div>
@@ -52,67 +59,68 @@
 </template>
 
 <script>
-import axios from 'axios'
-import PageMenu from '../components/Page/PageMenu'
-import PageFooter from '../components/Page/PageFooter'
-import PageWidget from '../components/Page/PageWidget'
-export default {
-  name: 'conversation',
-  components: {
-    PageMenu: PageMenu,
-    PageFooter: PageFooter,
-    PageWidget: PageWidget
-  },
-  data () {
-    return {
-      conversation: {},
-      lastIdReply: 0,
-      writetext: '',
-      chatScroll: 0
-    }
-  },
-  mounted: function () {
-    axios.get(`http://dev.logical.net/api` + this.$route.path)
-      .then(response => {
-      this.conversation = response.data
-      this.lastIdReply++
-      this.chatScroll++
-    })
-  },
-  methods: {
-    sendReply: function () {
-      axios.post(`http://dev.logical.net/api/conversation-reply/add-reply`, {
-        email: this.conversation.email,
-        text: this.writetext,
-        hash: this.conversation.hash
-      })
-       .then(response => {
-          this.lastIdReply = response.data.id
+    import axios from 'axios'
+    import PageMenu from '../components/Page/PageMenu'
+    import PageFooter from '../components/Page/PageFooter'
+    import PageWidget from '../components/Page/PageWidget'
 
-          this.conversation.conversationReplies[response.data.id + 1] = {
-            author: this.conversation.email,
-            createdAt: 'Now',
-            reply: this.writetext
-          }
+    export default {
+        name: 'conversation',
+        components: {
+            PageMenu: PageMenu,
+            PageFooter: PageFooter,
+            PageWidget: PageWidget
+        },
+        data() {
+            return {
+                conversation: {},
+                lastIdReply: 0,
+                writetext: '',
+                chatScroll: 0
+            }
+        },
+        mounted: function () {
+            axios.get(`${this.$root.host}/api` + this.$route.path)
+                .then(response => {
+                    this.conversation = response.data;
+                    this.lastIdReply++;
+                    this.chatScroll++;
+                })
+        },
+        methods: {
+            sendReply: function () {
+                axios.post(`http://dev.logical.net/api/conversation-reply/add-reply`, {
+                    email: this.conversation.email,
+                    text: this.writetext,
+                    hash: this.conversation.hash
+                })
+                    .then(response => {
+                        this.lastIdReply = response.data.id;
 
-          this.writetext = ''
-        })
-      .catch(function (error) {
-        console.log(error)
-      })
+                        this.conversation.conversationReplies[response.data.id + 1] = {
+                            author: this.conversation.email,
+                            createdAt: 'Now',
+                            reply: this.writetext
+                        };
+
+                        this.writetext = '';
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+        },
+        watch: {
+            lastIdReply: function () {
+                setTimeout(function () {
+                    this.chatScroll = document.getElementById('body-chat').scrollHeight;
+                    this.chatScroll++;
+                    console.log(this.chatScroll);
+                    document.getElementById('body-chat').scrollTop = this.chatScroll;
+                }, 1)
+            }
+        }
     }
-  },
-  watch: {
-    lastIdReply: function () {
-      setTimeout(function() {
-        this.chatScroll = document.getElementById('body-chat').scrollHeight
-        this.chatScroll++
-        console.log(this.chatScroll)
-        document.getElementById('body-chat').scrollTop = this.chatScroll
-      }, 1)
-    }
-  }
-}
 </script>
 
 <style scoped>
@@ -177,9 +185,11 @@ export default {
         font-size: 10px;
         padding: 3px 5px;
     }
+
     #body-chat {
         overflow-y: scroll;
     }
+
     .chat {
         list-style: none;
         margin: 0;
@@ -215,9 +225,9 @@ export default {
         font-size: 16px;
         padding: 10px;
         border: 1px solid #f1f5fc;
-        box-shadow: 0 1px 1px rgba(0,0,0,.05);
-        -moz-box-shadow: 0 1px 1px rgba(0,0,0,.05);
-        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     }
 
     .chat li .chat-body .header {

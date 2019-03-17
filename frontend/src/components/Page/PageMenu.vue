@@ -31,7 +31,7 @@ export default {
   watch: {
     loadmenu: {
       handler: function () {
-        axios.get(`http://dev.logical.net/api/pagemenu`)
+        axios.get(`${this.$root.host}/api/pagemenu`)
           .then(response => {
             this.menu = response.data
           })

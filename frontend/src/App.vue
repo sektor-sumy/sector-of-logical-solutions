@@ -27,5 +27,5 @@ export default {
 </script>
 
 <style>
-  @import '../vendor-web/bootstrap/css/bootstrap.min.css';
+  @import '../../vendor-web/bootstrap/dist/css/bootstrap.min.css';
 </style>

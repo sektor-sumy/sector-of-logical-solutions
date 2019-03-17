@@ -93,7 +93,7 @@ export default {
   methods: {
     StartConversation: function () {
       console.log('start post')
-      axios.post(`http://dev.logical.net/api/conversation`, {
+      axios.post(`${this.$root.host}/api/conversation`, {
           email: this.conversationForm.email,
           text: this.conversationForm.message
         })
