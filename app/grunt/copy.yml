@@ -32,6 +32,6 @@ default:
       expand: true
       flatten: true
       src:
-        - ./vendor-web/AdminLTE/dist/img/*
+        - ./app/Resources/AdminLTE/dist/img/*
       dest: web/dist/img
 
