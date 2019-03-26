@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/flat-icon/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('temp/styles/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend.css') }}">
 {% endblock %}
 
 
@@ -15,13 +16,27 @@
 {% block javascripts_vendor %}
     <script src="{{ asset('assets/jquery/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/frontend.js') }}"></script>
 
     <script>
+
         $(document).ready(function() {
             var $videoSrc = $("#video").attr("src");
 
             $('#myModal').on('hide.bs.modal', function (e) {
                 $("#video").attr('src',$videoSrc);
+            });
+
+
+            $(window).on('scroll', function () {
+                var scrolled = window.pageYOffset;
+
+
+                if (window.pageYOffset > 100) {
+                    $('#mainNav').addClass("nav-fix");
+                } else {
+                    $('#mainNav').removeClass("nav-fix");
+                }
             });
         });
     </script>

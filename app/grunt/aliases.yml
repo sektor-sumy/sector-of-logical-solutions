@@ -2,9 +2,9 @@ default:
   tasks:
     - clean
     - copy
-#    - less:dev_frontend
+    - less:dev_frontend
 #    - less:dev_backend
-#    - uglify
+    - uglify
 
 prod:
   tasks:

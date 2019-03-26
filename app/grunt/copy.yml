@@ -14,3 +14,10 @@ default:
             src:
                 - "**/*.*"
             dest: web/temp/
+        -
+            expand: true
+            flatten: false
+            cwd: ./app/Resources/dart-agency-html/temp/
+            src:
+                - "**/*.*"
+            dest: web/temp/

@@ -1,0 +1,32 @@
+/* line 1, app/Resources/css/frontend/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\000031}}
+html,
+body {
+  height: auto;
+}
+/* line 5, app/Resources/css/frontend/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\000035}}
+#mainNav {
+  display: none;
+}
+/* line 9, app/Resources/css/frontend/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\000039}}
+#mainNav.nav-fix {
+  display: block;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  background: #ffffff;
+}
+/* line 17, app/Resources/css/frontend/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\0000317}}
+.main-wrapper {
+  overflow-y: hidden;
+  width: unset;
+  margin: unset;
+}
+/* line 24, app/Resources/css/frontend/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\0000324}}
+#mainNav.nav-fix .navbar {
+  margin-bottom: 0;
+}
