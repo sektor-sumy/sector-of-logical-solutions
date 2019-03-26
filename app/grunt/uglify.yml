@@ -1,0 +1,47 @@
+main:
+  options:
+    mangle:
+      except: [ "jQuery", "Backbone" ]
+    sourceMap: false
+    beautify: true
+  files:
+    #web/js/vue.js:
+    #  - app/Resources/js/frontend/vue/**/*.js
+    #  - app/Resources/js/components/**/*.js
+    #web/js/account.js:
+    #  - app/Resources/js/account/**/*.js
+    #  - app/Resources/js/components/**/*.js
+    web/js/backend.js:
+      - app/Resources/js/backend/**/*.js
+    #  - app/Resources/js/components/**/*.js
+
+vendors:
+  options:
+    mangle:
+      except: [ "jQuery", "Backbone" ]
+    sourceMap: false
+    beautify: true
+  files:
+    web/js/backend_head.js:
+      - vendor-web/jquery/dist/jquery.min.js
+      #- vendor-web/jquery-ui/jquery-ui.min.js
+      #- vendor-web/html5shiv/dist/html5shiv.min.js
+      #- vendor-web/Respond/dest/respond.min.js
+      - vendor-web/bootstrap/bootstrap/dist/js/bootstrap.min.js
+      #- vendor-web/bootstrap-daterangepicker/daterangepicker.js
+      #- vendor-web/bootstrap-datepicker/daterangepicker.js
+      #- vendor-web/bootstrap/morris.js/morris.min.js
+
+    #web/js/backend_vendor.js:
+      #- vendor-web/bootstrap/raphael/raphael.min.js
+
+      #- vendor-web/AdminLTE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js
+      #- vendor-web/jvectormap/jquery-jvectormap.js
+      #- vendor-web/jquery-knob/dist/jquery.knob.min.js
+
+      #- vendor-web/moment/min/moment.min.js
+
+    web/js/backend1.js:
+      - vendor-web/AdminLTE/dist/js/adminlte.min.js
+      - vendor-web/AdminLTE/dist/js/pages/dashboard.js
+      - vendor-web/AdminLTE/dist/js/demo.js

@@ -1,0 +1,9 @@
+default:
+  src:
+    - "web/css"
+    - "web/fonts"
+    - "web/js"
+    - "web/img"
+    - "web/dist"
+    - "web/assets"
+    - "web/temp"

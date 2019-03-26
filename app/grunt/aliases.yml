@@ -1,0 +1,17 @@
+default:
+  tasks:
+    - clean
+    - copy
+#    - less:dev_frontend
+#    - less:dev_backend
+#    - uglify
+
+prod:
+  tasks:
+    - clean
+    - copy
+    - less:prod_frontend
+    - less:prod_backend
+    - less:prod_account
+    - less:prod_email
+    - uglify

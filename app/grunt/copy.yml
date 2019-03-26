@@ -1,0 +1,16 @@
+default:
+    files:
+        -
+            expand: true
+            flatten: false
+            cwd: ./app/Resources/dart-agency-html/assets/
+            src:
+                - "**/*.*"
+            dest: web/assets/
+        -
+            expand: true
+            flatten: false
+            cwd: ./app/Resources/dart-agency-html/temp/
+            src:
+                - "**/*.*"
+            dest: web/temp/
