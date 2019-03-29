@@ -16,7 +16,7 @@ body {
   position: fixed;
   width: 100%;
   z-index: 10;
-  background: #ffffff;
+  background: #ececec;
 }
 /* line 17, app/Resources/css/frontend/main.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\0000317}}
@@ -29,4 +29,14 @@ body {
 @media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\0000324}}
 #mainNav.nav-fix .navbar {
   margin-bottom: 0;
+}
+/* line 30, app/Resources/css/frontend/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\0000330}}
+.switch-lang {
+  background: #fe1313;
+}
+/* line 32, app/Resources/css/frontend/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/app\/Resources\/css\/frontend\/main\.less}line{font-family:\0000332}}
+.switch-lang #switchLangList {
+  display: none;
 }

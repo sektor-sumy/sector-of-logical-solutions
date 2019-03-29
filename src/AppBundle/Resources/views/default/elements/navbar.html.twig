@@ -16,8 +16,9 @@
             <li><a href="#">PORTFOLIO</a></li>
             <li><a href="#">BLOG</a></li>
             <li><a href="#">CONTACT</a></li>
-            <li><a href="{{ url('switch.lang', { 'locale': 'ru'}) }}">RU</a></li>
-            <li><a href="{{ url('switch.lang', { 'locale': 'en'}) }}">EN</a></li>
+            <li>
+                {% include '@App/default/elements/switch-lang.html.twig' %}
+            </li>
         </ul>
     </div>
 </nav>
