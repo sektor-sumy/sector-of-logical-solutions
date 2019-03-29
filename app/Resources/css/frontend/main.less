@@ -28,8 +28,13 @@ html, body {
 
 
 .switch-lang {
-    background: #fe1313;
-    & #switchLangList {
-        display: none;
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+    & .dropdown-menu {
+        & .lang-sm {
+            color: #000;
+        }
     }
 }

@@ -1,13 +1,11 @@
 <div class="switch-lang">
-    <div id="switchLang"><span>OOO</span></div>
-    <select class="selectpicker" data-width="fit">
-        <option data-content='<span class="flag-icon flag-icon-us"></span> English'>English</option>
-        <option  data-content='<span class="flag-icon flag-icon-mx"></span> Español'>Español</option>
-    </select>
-    <div id="switchLangList">
-        <ul>
-            <li><a href="{{ url('switch.lang', { 'locale': 'ru'}) }}">RU</a></li>
-            <li><a href="{{ url('switch.lang', { 'locale': 'en'}) }}">EN</a></li>
+    <div class="btn-group dropdown">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="lang-sm lang-lbl" lang="{{ app.request.locale }}"></span><span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ url('switch.lang', { 'locale': 'ru'}) }}"><span class="lang-sm lang-lbl-full" lang="ru"></span></a></li>
+            <li><a href="{{ url('switch.lang', { 'locale': 'en'}) }}"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li>
         </ul>
     </div>
 </div>

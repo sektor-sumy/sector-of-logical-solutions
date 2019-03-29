@@ -5,7 +5,7 @@
 
         <header class="" id="mainNav">
             <div class="container">
-                {% include '@App/default/elements/navbar.html.twig' %}
+                {% include '@App/default/elements/navbar.html.twig' with {'idBlock': 'mainNavScrolling'} %}
             </div>
         </header>
 
@@ -15,7 +15,7 @@
 
         <header class="header header--bg">
             <div class="container">
-                {% include '@App/default/elements/navbar.html.twig' %}
+                {% include '@App/default/elements/navbar.html.twig' with {'idBlock': 'mainNavStatic'} %}
                 <div class="header__content text-center">
                     <h1 class="header__content__title">CREATIVE AGENCY</h1>
                     <p class="header__content__paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>

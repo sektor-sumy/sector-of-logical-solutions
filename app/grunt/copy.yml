@@ -21,3 +21,11 @@ default:
             src:
                 - "**/*.*"
             dest: web/temp/
+
+        -
+            expand: true
+            flatten: false
+            cwd: ./vendor-web/bootstrap-languages/
+            src:
+                - "**/*.*"
+            dest: web/assets/bootstrap-languages/
